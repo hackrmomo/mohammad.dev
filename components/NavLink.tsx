@@ -17,6 +17,10 @@ export const NavLink = ({ special, children, to }: NavLinkProps) => {
     margin-right: ${special ? "26px" : "15px"};
     margin-left: 15px;
     > a {
+      transition: color 300ms 0ms;
+      :hover {
+        color: ${({ theme }) => (selected ? theme.primary : theme.secondary)};
+      }
       color: ${({ theme }) => (selected ? theme.primary : theme.default)};
       text-decoration: none;
       font-size: 1.56rem;

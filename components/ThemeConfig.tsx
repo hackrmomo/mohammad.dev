@@ -8,20 +8,23 @@ export interface ThemeProps {
   text: string;
   default: string;
   primary: string;
+  secondary: string;
 }
 
 export const lightTheme: ThemeProps = {
   background: "#FFFFFF",
   text: "#121212",
   default: "#121212",
-  primary: "#00D4C8 !important",
+  primary: "#00D4C8",
+  secondary: "#009990"
 };
 
 export const darkTheme: ThemeProps = {
   background: "#121212",
   text: "#FFFFFF",
   default: "#FFFFFF",
-  primary: "#008078 !important",
+  primary: "#008078",
+  secondary: "#00B2A7"
 };
 
 export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
