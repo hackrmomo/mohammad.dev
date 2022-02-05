@@ -31,4 +31,10 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
     font-family: "Work Sans";
     font-weight: 200;
   }
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.25rem;
+  }
 `;

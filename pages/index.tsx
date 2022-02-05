@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Mohammad Al-Ahdal | Home</title>
       </Head>
-      <FloatingDiv location={{ top: "50%", left: "10%", right: "10%" }}>
+      <FloatingDiv location={{ top: "45%", left: "10%", right: "10%" }}>
         <Text variant="h1">
           {"Hey, I'm "}
           <Text variant="span" color="primary">
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         </Text>
         <Text variant="h2">
           I'm a Software Developer from Ottawa, Canada. <br /> I love building
-          apps of all kinds, taking photos, and travelling!
+          apps of all kinds, playing video games, <br /> taking photos, and travelling!
         </Text>
       </FloatingDiv>
     </div>

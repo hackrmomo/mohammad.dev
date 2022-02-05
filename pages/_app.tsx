@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
+import { NavBar } from "../components/NavBar";
 import { darkTheme, GlobalStyles, lightTheme } from "../components/ThemeConfig";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -27,11 +28,19 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="description"
           content="Personal Portfolio for Mohammad Al-Ahdal"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href={`/favicon${darkMode.value ? "Dark" : "Light"}.ico`}
+        />
       </Head>
       <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
         <GlobalStyles />
-        {mounted && <Component {...pageProps} />}
+        {mounted && (
+          <>
+            <NavBar />
+            <Component {...pageProps} />
+          </>
+        )}
       </ThemeProvider>
     </>
   );
