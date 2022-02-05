@@ -29,5 +29,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     font-family: "Work Sans";
+    font-weight: 200;
   }
 `;

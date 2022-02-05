@@ -20,9 +20,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap"
           rel="stylesheet"
         />
+        <meta
+          name="description"
+          content="Personal Portfolio for Mohammad Al-Ahdal"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
         <GlobalStyles />

@@ -1,9 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styled from "styled-components";
-import { ThemeProps } from "../components/ThemeConfig";
-import useDarkMode from "use-dark-mode";
+import { FloatingDiv } from "../components/FloatingDiv";
 import { Text } from "../components/Text";
 
 const Home: NextPage = () => {
@@ -11,20 +8,22 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>Mohammad Al-Ahdal | Home</title>
-        <meta
-          name="description"
-          content="Personal Portfolio for Mohammad Al-Ahdal"
-        />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Text variant="h1">
-        {"Hey, I'm "}
-        <Text variant="span" color="primary">Mohammad</Text>.
-      </Text>
+      <FloatingDiv location={{ top: "50%", left: "10%", right: "10%" }}>
+        <Text variant="h1">
+          {"Hey, I'm "}
+          <Text variant="span" color="primary">
+            Mohammad
+          </Text>
+          .
+        </Text>
+        <Text variant="h2">
+          I'm a Software Developer from Ottawa, Canada. <br /> I love building
+          apps of all kinds, taking photos, and travelling!
+        </Text>
+      </FloatingDiv>
     </div>
   );
 };
-
-
 
 export default Home;
