@@ -1,10 +1,10 @@
-// import { useTheme } from "next-themes";
-import useDarkMode from "use-dark-mode";
-import { ReactNode } from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export interface ThemeProps {
   background: string;
+  paper: string;
+  sheet: string; // sheet is a secondary paper like item
+  shadow: string;
   text: string;
   default: string;
   primary: string;
@@ -13,18 +13,24 @@ export interface ThemeProps {
 
 export const lightTheme: ThemeProps = {
   background: "#FFFFFF",
+  paper: "#D9D9D9",
+  sheet: "#F9F9F9",
+  shadow: "#00000030",
   text: "#121212",
   default: "#121212",
   primary: "#00D4C8",
-  secondary: "#009990"
+  secondary: "#009990",
 };
 
 export const darkTheme: ThemeProps = {
   background: "#121212",
+  paper: "#222222",
+  sheet: "#333333",
+  shadow: "#000000",
   text: "#FFFFFF",
   default: "#FFFFFF",
   primary: "#008078",
-  secondary: "#00B2A7"
+  secondary: "#00B2A7",
 };
 
 export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
@@ -39,5 +45,17 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
   }
   h2 {
     font-size: 2.25rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+  :root {
+    --shadow: ${({ theme }) => theme.shadow};
+    --paper: ${({ theme }) => theme.paper};
+    --sheet: ${({ theme }) => theme.sheet};
+    --text: ${({ theme }) => theme.text};
+  }
+  textarea:focus, input:focus {
+    outline: none
   }
 `;

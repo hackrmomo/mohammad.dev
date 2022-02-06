@@ -1,11 +1,20 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
 import { NavBar } from "../components/NavBar";
 import { darkTheme, GlobalStyles, lightTheme } from "../components/ThemeConfig";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import { KBarProvider } from "kbar";
+
+import {
+  actions as kbarActions,
+  KbarSkeleton,
+} from "../components/kbarUtil";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const darkMode = useDarkMode(false);
@@ -14,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setMounted(true);
   }, []);
-
   return (
     <>
       <Head>
@@ -35,12 +43,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
         <GlobalStyles />
-        {mounted && (
-          <>
-            <NavBar />
-            <Component {...pageProps} />
-          </>
-        )}
+        <KBarProvider actions={kbarActions()}>
+          <KbarSkeleton />
+          {mounted && (
+            <>
+              <NavBar />
+              <Component {...pageProps} />
+            </>
+          )}
+        </KBarProvider>
       </ThemeProvider>
     </>
   );

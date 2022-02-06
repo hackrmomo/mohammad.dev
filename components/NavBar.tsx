@@ -28,7 +28,7 @@ export const NavBar = () => {
   `;
 
   const Logo = [
-    <Link href="/">
+    <Link key={0} href="/">
       <a>
         <Image
           src={`/logo${isDarkMode ? "Dark" : "Light"}.png`}
@@ -39,12 +39,11 @@ export const NavBar = () => {
     </Link>,
   ];
   const Links = [
-    <NavLink to="/about">About</NavLink>,
-    <NavLink to="/contact">Contact</NavLink>,
-    <NavLink to="/portfolio">Portfolio</NavLink>,
-    <NavLink to="/blog">Blog</NavLink>,
-    <NavLink to="/photography">Photography</NavLink>,
-    <NavLink to="/login">Login</NavLink>,
+    <NavLink key={0} to="/about">About</NavLink>,
+    <NavLink key={1} to="/contact">Contact</NavLink>,
+    <NavLink key={2} to="/portfolio">Portfolio</NavLink>,
+    <NavLink key={3} to="/blog">Blog</NavLink>,
+    <NavLink key={4} to="/photography">Photography</NavLink>,
   ];
   return (
     <NavContainer>
