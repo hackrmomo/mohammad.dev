@@ -9,7 +9,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import { KBarProvider } from "kbar";
 
 import {
-  actions as kbarActions,
+  useActions as kbarActions,
   KbarSkeleton,
 } from "../components/kbarUtil";
 import "@fortawesome/fontawesome-svg-core/styles.css";

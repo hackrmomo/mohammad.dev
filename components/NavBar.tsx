@@ -4,12 +4,10 @@ import useDarkMode from "use-dark-mode";
 import { NavLink } from "./NavLink";
 import Link from "next/link";
 import FadeIn from "react-fade-in";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 export const NavBar = () => {
   const { value: isDarkMode } = useDarkMode();
-  const {} = useRouter();
   const [hasCompletedOnce, setHasCompletedOnce] = useState(false);
 
   const NavContainer = styled.nav`
@@ -34,6 +32,7 @@ export const NavBar = () => {
           src={`/logo${isDarkMode ? "Dark" : "Light"}.png`}
           width={60}
           height={60}
+          alt="hackr logo"
         />
       </a>
     </Link>,

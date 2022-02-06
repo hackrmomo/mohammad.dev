@@ -10,7 +10,7 @@ import Router from "next/router";
 import styled from "styled-components";
 import useDarkMode from "use-dark-mode";
 
-export const actions = () => {
+export const useActions = () => {
   var { value, toggle } = useDarkMode();
   return [
     {
