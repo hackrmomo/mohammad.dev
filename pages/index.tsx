@@ -36,6 +36,10 @@ const Home: NextPage = () => {
             building apps of all kinds, playing video games, <br /> taking
             photos, and travelling!
           </Text>
+          <Text color="#808080">
+            (we're still under construction but my family really wanted to see
+            this + I needed to work on deployment anyways)
+          </Text>
           <FadeIn wrapperTag={HorizontalWrapper}>
             <Text raise variant="h3" color="var(--text)">
               <a href="https://github.com/hackrmomo">
