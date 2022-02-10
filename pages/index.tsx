@@ -34,7 +34,7 @@ const VerticalWrapper = styled.div`
   left: 0px;
   padding: 0px;
   margin: 0px;
-  z-index: 5;
+  z-index: 0;
 `;
 
 const FullPage = styled.div`

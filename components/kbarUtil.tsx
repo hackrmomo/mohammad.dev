@@ -26,16 +26,22 @@ export const useActions = () => {
       perform: () => Router.push("/"),
     },
     {
-      id: "/about",
+      id: "#about",
       name: "About",
       keywords: "about mohammad hackr momo",
-      perform: () => Router.push("/about"),
+      perform: () => Router.push("/#about"),
     },
     {
-      id: "/contact",
+      id: "#contact",
       name: "Contact",
-      keywords: "about mohammad hackr momo",
-      perform: () => Router.push("/about"),
+      keywords: "contact mohammad hackr momo",
+      perform: () => Router.push("/#contact"),
+    },
+    {
+      id: "/portfolio",
+      name: "Portfolio",
+      keywords: "doing things making engineering",
+      perform: () => Router.push("/portfolio"),
     },
     {
       id: "/blog",
@@ -78,7 +84,7 @@ export const RenderResults = () => {
 };
 
 export const KbarResultsContainer = styled.div`
-  z-index: 1;
+  z-index: 15;
   position: relative;
   padding-top: 0.3rem;
   transform: translateY(-0.3rem);
@@ -124,7 +130,7 @@ export const KbarSkeleton = () => {
               borderRadius: "0.3rem 0.3rem 0rem 0rem",
               minWidth: 500,
               fontSize: "1.25rem",
-              zIndex: 5,
+              zIndex: 20,
               position: "relative",
             }}
           />
