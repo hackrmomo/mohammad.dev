@@ -37,7 +37,7 @@ const Home: NextPage = () => {
             photos, and travelling!
           </Text>
           <Text color="#808080">
-            (we're still under construction but my family really wanted to see
+            (we&apos;re still under construction but my family really wanted to see
             this + I needed to work on deployment anyways)
           </Text>
           <FadeIn wrapperTag={HorizontalWrapper}>
