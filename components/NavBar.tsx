@@ -11,10 +11,29 @@ export const NavBar = () => {
   const [hasCompletedOnce, setHasCompletedOnce] = useState(false);
 
   const NavContainer = styled.nav`
-    margin-left: 20px;
-    margin-top: 20px;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-left: 20px;
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
+    background-color: ${({ theme }) => theme.background};
+    ::before {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      height: 50px;
+      right: -20px;
+      top: 100%;
+      left: -20px;
+      background-image: linear-gradient(
+        ${({ theme }) => theme.background},
+        transparent
+      );
+    }
   `;
   const LinksContainer = styled.div`
     display: flex;
@@ -26,7 +45,7 @@ export const NavBar = () => {
   `;
 
   const Logo = [
-    <Link key={0} href="/">
+    <Link key="logo" href="/">
       <a>
         <Image
           src={`/logo${isDarkMode ? "Dark" : "Light"}.png`}
@@ -38,12 +57,16 @@ export const NavBar = () => {
     </Link>,
   ];
   const Links = [
-    <NavLink key={0} to="/about">About</NavLink>,
-    <NavLink key={1} to="/contact">Contact</NavLink>,
-    <NavLink key={2} to="/portfolio">Portfolio</NavLink>,
-    <NavLink key={3} to="/blog">Blog</NavLink>,
-    <NavLink key={4} to="/photography">Photography</NavLink>,
-  ];
+    ["/#about", "About"],
+    ["/#contact", "Contact"],
+    ["/portfolio", "Portfolio"],
+    ["/blog", "Blog"],
+    ["/photography", "Photography"],
+  ].map((link) => (
+    <NavLink key={link[0]} to={link[0]}>
+      {link[1]}
+    </NavLink>
+  ));
   return (
     <NavContainer>
       {hasCompletedOnce ? Logo : <FadeIn>{Logo}</FadeIn>}

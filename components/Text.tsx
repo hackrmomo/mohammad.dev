@@ -16,6 +16,7 @@ export const Text = (props: TextProps) => {
         : theme[props.color ?? "default"]} !important;
     font-weight: 300;
     transition: transform 300ms;
+    display: inline-block;
     :hover {
       ${props.raise && "transform: translateY(-25%);"}
     }

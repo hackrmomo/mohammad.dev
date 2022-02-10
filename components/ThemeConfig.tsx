@@ -34,11 +34,15 @@ export const darkTheme: ThemeProps = {
 };
 
 export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     font-family: "Work Sans";
     font-weight: 200;
+    margin: 0px;
   }
   h1 {
     font-size: 3rem;
