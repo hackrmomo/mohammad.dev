@@ -14,6 +14,6 @@ export default async function handler(
     console.log(portfolios)
     await res.status(200).json(portfolios);
   } catch(e) {
-    await res.status(200).json(e);
+    await res.status(500).json(e);
   }
 }
