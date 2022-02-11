@@ -6,9 +6,14 @@ const prisma = new PrismaClient()
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<portfolio[]>
+  res: NextApiResponse<any>
 ) {
-  const portfolios = await prisma.portfolio.findMany();
-  console.log(portfolios)
-  await res.status(200).json(portfolios);
+  try {
+
+    const portfolios = await prisma.portfolio.findMany();
+    console.log(portfolios)
+    await res.status(200).json(portfolios);
+  } catch(e) {
+    await res.status(200).json(e);
+  }
 }
