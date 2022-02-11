@@ -1,0 +1,19 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("HACKRWEB_SQL_CS")
+}
+
+model portfolio {
+  id              Int         @id @default(autoincrement())
+  title           String      @db.VarChar(255)
+  createdAt       DateTime    @default(now()) @db.Timestamp(6)
+  description     String
+  link            String?
+}
