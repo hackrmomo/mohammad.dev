@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 interface NavLinkProps {
   special?: boolean;
   children: ReactNode;
-  to: string;
+  to: string | (() => void);
 }
 
 export const NavLink = ({ special, children, to }: NavLinkProps) => {
-  const { pathname } = useRouter();
-  const selected = pathname === to;
+  const { asPath } = useRouter();
+  const selected = asPath === to;
   const BoundingDiv = styled.div`
     margin-top: ${special ? "6px" : "16px"};
     margin-right: ${special ? "26px" : "15px"};
@@ -34,7 +34,15 @@ export const NavLink = ({ special, children, to }: NavLinkProps) => {
 
   return (
     <BoundingDiv>
-      <Link href={to}>{children}</Link>
+      {typeof to === "string" ? (
+        <Link href={to}>{children}</Link>
+      ) : (
+        <FunctionalLink onClick={to}>{children}</FunctionalLink>
+      )}
     </BoundingDiv>
   );
 };
+
+const FunctionalLink = styled.a`
+  cursor: pointer;
+`;

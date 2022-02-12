@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
 import { NavBar } from "../components/NavBar";
-import { darkTheme, GlobalStyles, lightTheme } from "../components/ThemeConfig";
+import { darkTheme, useGlobalStyles, lightTheme } from "../components/ThemeConfig";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { KBarProvider } from "kbar";
 
@@ -19,6 +19,7 @@ config.autoAddCss = false;
 function MyApp({ Component, pageProps }: AppProps) {
   const darkMode = useDarkMode(false);
   const [mounted, setMounted] = useState(false);
+  const GlobalStyles = useGlobalStyles();
 
   useEffect(() => {
     setMounted(true);
@@ -29,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300&display=swap"
           rel="stylesheet"
         />
         <meta

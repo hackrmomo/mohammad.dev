@@ -4,11 +4,16 @@ import useDarkMode from "use-dark-mode";
 import { NavLink } from "./NavLink";
 import Link from "next/link";
 import FadeIn from "react-fade-in";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useWindowSize } from "./misc/useWindowSize";
+import { HamburgerIcon } from "./Hamburger";
+import { useAuth } from "./misc/useAuth";
 
 export const NavBar = () => {
-  const { value: isDarkMode } = useDarkMode();
+  const { value: isDarkMode, toggle } = useDarkMode();
   const [hasCompletedOnce, setHasCompletedOnce] = useState(false);
+  const { isMobile } = useWindowSize();
+  const [{ authenticated }, _, { logout }] = useAuth();
 
   const NavContainer = styled.nav`
     z-index: 10;
@@ -49,8 +54,8 @@ export const NavBar = () => {
       <a>
         <Image
           src={`/logo${isDarkMode ? "Dark" : "Light"}.png`}
-          width={60}
-          height={60}
+          width={isMobile ? 35 : 60}
+          height={isMobile ? 35 : 60}
           alt="hackr logo"
         />
       </a>
@@ -62,17 +67,30 @@ export const NavBar = () => {
     ["/portfolio", "Portfolio"],
     ["/blog", "Blog"],
     ["/photography", "Photography"],
-  ].map((link) => (
-    <NavLink key={link[0]} to={link[0]}>
-      {link[1]}
+    isMobile
+      ? authenticated
+        ? [logout, "Logout"]
+        : ["/login", "Login"]
+      : null,
+    isMobile ? [toggle, "Switch Theme"] : null,
+  ];
+
+  const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
+    <NavLink key={index} to={link![0]}>
+      {link![1]}
     </NavLink>
   ));
+
   return (
     <NavContainer>
       {hasCompletedOnce ? Logo : <FadeIn>{Logo}</FadeIn>}
       <SpacerDiv />
       {hasCompletedOnce ? (
-        Links
+        isMobile ? (
+          <HamburgerIcon>{LinkElements}</HamburgerIcon>
+        ) : (
+          LinkElements
+        )
       ) : (
         <FadeIn
           onComplete={() => {
@@ -80,7 +98,11 @@ export const NavBar = () => {
           }}
           wrapperTag={LinksContainer}
         >
-          {Links}
+          {isMobile ? (
+            <HamburgerIcon>{LinkElements}</HamburgerIcon>
+          ) : (
+            LinkElements
+          )}
         </FadeIn>
       )}
     </NavContainer>

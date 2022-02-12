@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeBranch } from "@fortawesome/pro-light-svg-icons";
-import { faLinkedinIn, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedinIn, faTwitch, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 export const Home = () => {
@@ -45,6 +45,11 @@ export const Home = () => {
             <Text raise variant="h3" color="#0c66c3">
               <a href="https://linkedin.com/in/mohammadalahdal">
                 <FontAwesomeIcon icon={faLinkedinIn} />
+              </a>
+            </Text>
+            <Text raise variant="h3" color="#6340a4">
+              <a href="https://twitch.tv/hackrmomo">
+                <FontAwesomeIcon icon={faTwitch} />
               </a>
             </Text>
           </FadeIn>

@@ -1,19 +1,13 @@
-import axios from "axios";
 import FadeIn from "react-fade-in";
 import useAxios from "axios-hooks";
 import { NextPage } from "next";
 import styled from "styled-components";
-import { FloatingDiv } from "../components/FloatingDiv";
 import { LoadingIcon } from "../components/loading/LoadingIcon";
 import { TextField } from "../components/TextField";
 import { Text } from "../components/Text";
 import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
-import Router from "next/router";
-
-const isNullOrWhitespace = (input?: string | null) => {
-  return !input || !input.trim();
-};
+import { useAuth } from "../components/misc/useAuth";
 
 const Login: NextPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -22,35 +16,15 @@ const Login: NextPage = () => {
   const [password, setPassword] = useState("");
 
   const [
+    { loading },
+    { loginLoading, registerLoading },
+    { login: executeLogin, register: executeRegister },
+  ] = useAuth();
+
+  const [
     { data: canCreateNewUser, loading: initialLoading },
     checkCanCreateAdminAccount,
   ] = useAxios<boolean>("/api/auth/can-create", { manual: true });
-
-  const [{ data: isValid, loading: isValidating }, validate] =
-    useAxios<boolean>("/api/auth/validate", { manual: true });
-
-  const [{ data: registerResult, loading: loadingRegister }, executeRegister] =
-    useAxios<
-      { authToken?: string; error?: string },
-      { email: string; password: string; firstName: string; lastName: string }
-    >(
-      {
-        url: "/api/auth/register",
-        method: "POST",
-      },
-      { manual: true }
-    );
-
-  const [{ data: loginResult, loading: loadingLogin }, executeLogin] = useAxios<
-    { authToken?: string; error?: string },
-    { email: string; password: string }
-  >(
-    {
-      url: "/api/auth/login",
-      method: "POST",
-    },
-    { manual: true }
-  );
 
   const login = async () => {
     await executeLogin({
@@ -80,33 +54,6 @@ const Login: NextPage = () => {
     setLastName("");
     await checkCanCreateAdminAccount();
   };
-  useEffect(() => {
-    if (
-      !isNullOrWhitespace(registerResult?.authToken) ||
-      !isNullOrWhitespace(loginResult?.authToken)
-    ) {
-      sessionStorage.setItem(
-        "authToken",
-        registerResult?.authToken ?? loginResult?.authToken ?? ""
-      );
-    }
-    if (!isNullOrWhitespace(sessionStorage.getItem("authToken"))) {
-      Router.push("/");
-    }
-  }, [registerResult, loginResult]);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("authToken");
-    if (!isNullOrWhitespace(token)) {
-      validate({ headers: { Authorization: token! } });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isValid) {
-      Router.push("/");
-    }
-  }, [isValid]);
 
   useEffect(() => {
     checkCanCreateAdminAccount();
@@ -115,7 +62,7 @@ const Login: NextPage = () => {
   return (
     <>
       <LoginContainer>
-        {initialLoading || isValidating ? (
+        {initialLoading || loading ? (
           <LoadingIcon size={300} />
         ) : (
           <>
@@ -170,7 +117,7 @@ const Login: NextPage = () => {
                   onClick={async () => {
                     await register();
                   }}
-                  loading={loadingRegister}
+                  loading={registerLoading}
                 >
                   Register
                 </Button>
@@ -205,7 +152,7 @@ const Login: NextPage = () => {
                   onClick={async () => {
                     await login();
                   }}
-                  loading={loadingLogin}
+                  loading={loginLoading}
                 >
                   Login
                 </Button>

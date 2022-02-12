@@ -30,6 +30,7 @@ const Field = styled.input<{ error?: string }>`
   padding: 0.5rem;
   background-color: transparent;
   border: none;
+  border-radius: 0;
   border-bottom: 1px solid ${({ theme }) => theme.text}80;
   transition: border-bottom 300ms;
   color: ${({ theme }) => theme.text};

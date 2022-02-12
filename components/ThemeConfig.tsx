@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { useWindowSize } from "./misc/useWindowSize";
 
 export interface ThemeProps {
   background: string;
@@ -33,7 +34,9 @@ export const darkTheme: ThemeProps = {
   secondary: "#00B2A7",
 };
 
-export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
+export const useGlobalStyles = () => {
+  const { isMobile } = useWindowSize();
+  return createGlobalStyle<{ theme: ThemeProps }>`
   html {
     scroll-behavior: smooth;
   }
@@ -44,19 +47,19 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
   }
   * {
     font-family: "Work Sans";
-    font-weight: 200;
+    font-weight: ${isMobile ? 300 : 200} !important;
   }
   h1 {
-    font-size: 3rem;
+    font-size: ${isMobile ? "1.75rem" : "3rem"};
   }
   h2 {
-    font-size: 2.25rem;
+    font-size: ${isMobile ? "1.5rem" : "2.25rem"};
   }
   h3 {
-    font-size: 1.5rem;
+    font-size: ${isMobile ? "0.825rem" : "1.5rem"};
   }
   p {
-    font-size: 1.25rem;
+    font-size: ${isMobile ? "0.75rem" : "1.5rem"};
   }
   :root {
     --shadow: ${({ theme }) => theme.shadow};
@@ -68,3 +71,4 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
     outline: none
   }
 `;
+};

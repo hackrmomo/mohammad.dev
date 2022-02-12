@@ -9,9 +9,11 @@ import {
 import Router from "next/router";
 import styled from "styled-components";
 import useDarkMode from "use-dark-mode";
+import { useAuth } from "./misc/useAuth";
 
 export const useActions = () => {
   var { value, toggle } = useDarkMode();
+  var [_, __, { logout }] = useAuth();
   return [
     {
       id: "switchTheme",
@@ -65,9 +67,8 @@ export const useActions = () => {
       id: "logout",
       name: "Logout (pls kbar)",
       keywords: "logout clear",
-      perform: () => {
-        sessionStorage.removeItem("authToken");
-        Router.push("/login")
+      perform: async () => {
+        await logout();
       },
     },
   ];
