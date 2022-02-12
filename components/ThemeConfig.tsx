@@ -40,9 +40,11 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
   body {
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
+    margin: 0px;
+  }
+  * {
     font-family: "Work Sans";
     font-weight: 200;
-    margin: 0px;
   }
   h1 {
     font-size: 3rem;

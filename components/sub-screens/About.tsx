@@ -29,7 +29,7 @@ export const About = () => {
             I take my job as a software developer with great responsibility.
             I&apos;m building the tools that keep your business running and
             I&apos;m always ready to put 110% of my effort into the ideas you
-            want to see come intofruition.
+            want to see come into fruition.
             <br />
           </Text>
           <Text raise color="primary" variant="h3">

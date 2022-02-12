@@ -61,6 +61,15 @@ export const useActions = () => {
       keywords: "login authenticate",
       perform: () => Router.push("/login"),
     },
+    {
+      id: "logout",
+      name: "Logout (pls kbar)",
+      keywords: "logout clear",
+      perform: () => {
+        sessionStorage.removeItem("authToken");
+        Router.push("/login")
+      },
+    },
   ];
 };
 
