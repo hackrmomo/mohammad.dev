@@ -55,6 +55,9 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeProps }>`
   h3 {
     font-size: 1.5rem;
   }
+  p {
+    font-size: 1.25rem;
+  }
   :root {
     --shadow: ${({ theme }) => theme.shadow};
     --paper: ${({ theme }) => theme.paper};

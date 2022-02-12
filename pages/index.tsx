@@ -21,14 +21,6 @@ const index: NextPage = () => {
         </FullPage>
         <FullPage id="contact">
           <Contact />
-          <button
-            onClick={async () => {
-              console.log("working")
-              console.log((await axios.get("/api/hello")).data);
-            }}
-          >
-            test server functionality
-          </button>
         </FullPage>
       </VerticalWrapper>
     </div>
