@@ -115,98 +115,103 @@ const Login: NextPage = () => {
   return (
     <>
       <LoginContainer>
-        {canCreateNewUser && (
-          <FadeIn wrapperTag={FieldsContainer}>
-            <Text variant="h2">Register Admin Account</Text>
-            <TextField
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-              onSubmit={async () => {
-                await login();
-              }}
-              value={firstName}
-              type="text"
-              placeholder="First Name"
-            />
-            <TextField
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-              onSubmit={async () => {
-                await login();
-              }}
-              value={lastName}
-              type="text"
-              placeholder="Last Name"
-            />
-            <TextField
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              onSubmit={async () => {
-                await login();
-              }}
-              value={email}
-              type="email"
-              placeholder="Email"
-            />
-            <TextField
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              onSubmit={async () => {
-                await register();
-              }}
-              value={password}
-              type="password"
-              placeholder="Password"
-            />
-            <Button
-              onClick={async () => {
-                await register();
-              }}
-              loading={loadingRegister}
-            >
-              Register
-            </Button>
-          </FadeIn>
-        )}
-        {(initialLoading || isValidating) && <LoadingIcon size={300} />}
-        {!canCreateNewUser && (
-          <FadeIn wrapperTag={FieldsContainer}>
-            <Text variant="h2">Login to Admin Account</Text>
-            <TextField
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              onSubmit={async () => {
-                await login();
-              }}
-              value={email}
-              type="email"
-              placeholder="Email"
-            />
-            <TextField
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              onSubmit={async () => {
-                await login();
-              }}
-              value={password}
-              type="password"
-              placeholder="Password"
-            />
-            <Button
-              onClick={async () => {
-                await login();
-              }}
-              loading={loadingLogin}
-            >
-              Login
-            </Button>
-          </FadeIn>
+        {initialLoading || isValidating ? (
+          <LoadingIcon size={300} />
+        ) : (
+          <>
+            {canCreateNewUser && (
+              <FadeIn wrapperTag={FieldsContainer}>
+                <Text variant="h2">Register Admin Account</Text>
+                <TextField
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await login();
+                  }}
+                  value={firstName}
+                  type="text"
+                  placeholder="First Name"
+                />
+                <TextField
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await login();
+                  }}
+                  value={lastName}
+                  type="text"
+                  placeholder="Last Name"
+                />
+                <TextField
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await login();
+                  }}
+                  value={email}
+                  type="email"
+                  placeholder="Email"
+                />
+                <TextField
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await register();
+                  }}
+                  value={password}
+                  type="password"
+                  placeholder="Password"
+                />
+                <Button
+                  onClick={async () => {
+                    await register();
+                  }}
+                  loading={loadingRegister}
+                >
+                  Register
+                </Button>
+              </FadeIn>
+            )}
+            {!canCreateNewUser && (
+              <FadeIn wrapperTag={FieldsContainer}>
+                <Text variant="h2">Login to Admin Account</Text>
+                <TextField
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await login();
+                  }}
+                  value={email}
+                  type="email"
+                  placeholder="Email"
+                />
+                <TextField
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  onSubmit={async () => {
+                    await login();
+                  }}
+                  value={password}
+                  type="password"
+                  placeholder="Password"
+                />
+                <Button
+                  onClick={async () => {
+                    await login();
+                  }}
+                  loading={loadingLogin}
+                >
+                  Login
+                </Button>
+              </FadeIn>
+            )}
+          </>
         )}
       </LoginContainer>
     </>
