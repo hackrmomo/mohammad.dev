@@ -21,8 +21,10 @@ const Login: NextPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [{ data: canCreateNewUser, loading: initialLoading }, refetch] =
-    useAxios<boolean>("/api/auth/can-create", { manual: true });
+  const [
+    { data: canCreateNewUser, loading: initialLoading },
+    checkCanCreateAdminAccount,
+  ] = useAxios<boolean>("/api/auth/can-create", { manual: true });
 
   const [{ data: isValid, loading: isValidating }, validate] =
     useAxios<boolean>("/api/auth/validate", { manual: true });
@@ -57,6 +59,11 @@ const Login: NextPage = () => {
         password,
       },
     });
+    setEmail("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+    await checkCanCreateAdminAccount();
   };
   const register = async () => {
     await executeRegister({
@@ -67,6 +74,11 @@ const Login: NextPage = () => {
         password,
       },
     });
+    setEmail("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+    await checkCanCreateAdminAccount();
   };
   useEffect(() => {
     if (
@@ -95,6 +107,10 @@ const Login: NextPage = () => {
       Router.push("/");
     }
   }, [isValid]);
+
+  useEffect(() => {
+    checkCanCreateAdminAccount();
+  }, []);
 
   return (
     <>
@@ -149,11 +165,6 @@ const Login: NextPage = () => {
             <Button
               onClick={async () => {
                 await register();
-                setEmail("");
-                setPassword("");
-                setFirstName("");
-                setLastName("");
-                await refetch();
               }}
               loading={loadingRegister}
             >
