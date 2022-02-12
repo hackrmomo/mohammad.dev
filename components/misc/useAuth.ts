@@ -106,7 +106,6 @@ export const useAuth: () => [
       );
       setAuthToken(registerResult?.authToken ?? loginResult?.authToken ?? "");
       setAuthenticated(true);
-      Router.push("/");
     }
   }, [registerResult, loginResult]);
 
@@ -119,6 +118,10 @@ export const useAuth: () => [
       const authToken = localStorage.getItem("authToken");
       setAuthToken(authToken ?? undefined);
       setAuthenticated(true);
+      if (Router.pathname === "/login") {
+        Router.push("/");
+        Router.reload(); // hacky solution for react hook changes not propagating correctly
+      }
     }
   }, [data]);
 
