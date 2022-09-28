@@ -3,7 +3,7 @@ networks:
   server:
     external: true
 services:
-  hackrlabs:
+  mohammad:
     container_name: mohammad
     restart: always
     networks:
