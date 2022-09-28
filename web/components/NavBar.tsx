@@ -77,7 +77,7 @@ export const NavBar = () => {
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
     <NavLink key={index} to={link![0]}>
-      {link![1]}
+      {link![1] as string}
     </NavLink>
   ));
 

@@ -1,0 +1,16 @@
+FROM node:18
+WORKDIR /usr/local/share/mohammad.dev
+
+ARG NPM_TOKEN
+
+RUN npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+RUN npm config set "//npm.fontawesome.com/:_authToken" ${NPM_TOKEN}
+
+COPY ./package.json ./
+RUN yarn
+COPY ./ ./
+
+EXPOSE ${PORT}
+
+RUN yarn build
+CMD ["yarn", "dev"]

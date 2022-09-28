@@ -1,0 +1,22 @@
+version: '3.9'
+networks:
+  server:
+    external: true
+services:
+  hackrlabs:
+    container_name: mohammad
+    restart: always
+    networks:
+      server:
+        aliases:
+          - mohammad
+          - homemohammad
+    build: 
+      context: ./web
+      args:
+        - PORT=${PORT}
+        - NPM_TOKEN=${NPM_TOKEN}
+    env_file:
+      - .env
+    volumes:
+      - ./web:/usr/local/share/mohammad.dev

@@ -34,22 +34,22 @@ export const Home = () => {
           <FadeIn wrapperTag={HorizontalWrapper}>
             <Text raise variant="h3" color="var(--text)">
               <a href="https://github.com/hackrmomo">
-                <FontAwesomeIcon icon={faCodeBranch} />
+                <FontAwesomeIcon icon={"code-branch"} />
               </a>
             </Text>
             <Text raise variant="h3" color="#1ca1f3">
               <a href="https://twitter.com/hackrmomo">
-                <FontAwesomeIcon icon={faTwitter} />
+                <FontAwesomeIcon icon={"twitter"} />
               </a>
             </Text>
             <Text raise variant="h3" color="#0c66c3">
               <a href="https://linkedin.com/in/mohammadalahdal">
-                <FontAwesomeIcon icon={faLinkedinIn} />
+                <FontAwesomeIcon icon={"linkedin"} />
               </a>
             </Text>
             <Text raise variant="h3" color="#6340a4">
               <a href="https://twitch.tv/hackrmomo">
-                <FontAwesomeIcon icon={faTwitch} />
+                <FontAwesomeIcon icon={"twitch"} />
               </a>
             </Text>
           </FadeIn>
