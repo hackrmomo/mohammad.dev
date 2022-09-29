@@ -9,11 +9,9 @@ import {
 import Router from "next/router";
 import styled from "styled-components";
 import useDarkMode from "use-dark-mode";
-import { useAuth } from "./misc/useAuth";
 
 export const useActions = () => {
   var { value, toggle } = useDarkMode();
-  var [_, __, { logout }] = useAuth();
   return [
     {
       id: "switchTheme",
@@ -56,21 +54,7 @@ export const useActions = () => {
       name: "Photography",
       keywords: "photos camera shoot gallery",
       perform: () => Router.push("/photography"),
-    },
-    {
-      id: "/login",
-      name: "Login",
-      keywords: "login authenticate",
-      perform: () => Router.push("/login"),
-    },
-    {
-      id: "logout",
-      name: "Logout (pls kbar)",
-      keywords: "logout clear",
-      perform: async () => {
-        await logout();
-      },
-    },
+    }
   ];
 };
 
