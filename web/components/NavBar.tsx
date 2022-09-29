@@ -7,7 +7,6 @@ import FadeIn from "react-fade-in";
 import { useEffect, useState } from "react";
 import { useWindowSize } from "./misc/useWindowSize";
 import { HamburgerIcon } from "./Hamburger";
-import { useAuth } from "./misc/useAuth";
 import DarkLogo from "../public/logoDark.png";
 import LightLogo from "../public/logoLight.png";
 
@@ -15,7 +14,6 @@ export const NavBar = () => {
   const { value: isDarkMode, toggle } = useDarkMode();
   const [hasCompletedOnce, setHasCompletedOnce] = useState(false);
   const { isMobile } = useWindowSize();
-  const [{ authenticated }, _, { logout }] = useAuth();
 
   const NavContainer = styled.nav`
     z-index: 10;
@@ -69,11 +67,6 @@ export const NavBar = () => {
     ["/portfolio", "Portfolio"],
     ["/blog", "Blog"],
     ["/photography", "Photography"],
-    isMobile
-      ? authenticated
-        ? [logout, "Logout"]
-        : ["/login", "Login"]
-      : null,
     isMobile ? [toggle, "Switch Theme"] : null,
   ];
 
