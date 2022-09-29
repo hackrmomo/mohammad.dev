@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { useWindowSize } from "./misc/useWindowSize";
 import { HamburgerIcon } from "./Hamburger";
 import { useAuth } from "./misc/useAuth";
+import DarkLogo from "../public/logoDark.png";
+import LightLogo from "../public/logoLight.png";
 
 export const NavBar = () => {
   const { value: isDarkMode, toggle } = useDarkMode();
@@ -53,7 +55,7 @@ export const NavBar = () => {
     <Link key="logo" href="/">
       <a>
         <Image
-          src={`/logo${isDarkMode ? "Dark" : "Light"}.png`}
+          src={isDarkMode ? DarkLogo.src : LightLogo.src}
           width={isMobile ? 35 : 60}
           height={isMobile ? 35 : 60}
           alt="hackr logo"
@@ -77,7 +79,7 @@ export const NavBar = () => {
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
     <NavLink key={index} to={link![0]}>
-      {link![1]}
+      {link![1] as string}
     </NavLink>
   ));
 

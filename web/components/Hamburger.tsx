@@ -1,8 +1,8 @@
 import FadeIn from "react-fade-in";
-import { faBars } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
+import { faBars } from "@fortawesome/pro-solid-svg-icons";
 
 interface HamburgerProps {
   children: ReactNode;
