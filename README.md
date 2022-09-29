@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# mohammad.dev
 
-## Getting Started
+## Hi there 👋
+This is all of the code that runs my website, mohammad.dev. It's built with [Next.js](https://nextjs.org/) and [Prisma](https://www.prisma.io/) and hosted on [my home server](https://github.com/hackrmomo/home_server) as a dockerized container. It's a work in progress, so expect great things to come!
 
-First, run the development server:
+## Development
+To run this project locally, you'll need to have [docker](https://www.docker.com/) installed. Then, clone this repository and run the following commands:
 
-```bash
-npm run dev
-# or
-yarn dev
+```
+sudo docker-compose up -d
+# or to do a clean deployment
+sudo docker-compose up -d --build --force-recreate --remove-orphans
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Images
+<img width="1748" alt="image" src="https://user-images.githubusercontent.com/5733032/192911867-e6371040-9356-47a1-9c63-11dbedd9f01b.png">
+<img width="675" alt="image" src="https://user-images.githubusercontent.com/5733032/192911901-6af899ec-7a54-43a3-baf4-18dac53ec087.png">
+<img width="1746" alt="image" src="https://user-images.githubusercontent.com/5733032/192911943-56202752-d1d6-4856-b91b-7a9697ecc45d.png">
