@@ -2,6 +2,7 @@ import FadeIn from "react-fade-in";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
+import { faBars } from "@fortawesome/pro-solid-svg-icons";
 
 interface HamburgerProps {
   children: ReactNode;
@@ -24,7 +25,7 @@ export const HamburgerIcon = (props: HamburgerProps) => {
         }}
         style={{ zIndex: 115, cursor: "pointer" }}
         size="lg"
-        icon={"bars"}
+        icon={faBars}
       />
       <HamburgerMenu open={isMenuOpen}>
         {isMenuOpen && <FadeIn>{props.children}</FadeIn>}

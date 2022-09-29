@@ -5,6 +5,9 @@ const nextConfig = {
   experimental: {
     styledComponents: true,
   },
+  images: {
+    domains: ['mohammad.dev'],
+  },
 };
 
 module.exports = nextConfig;

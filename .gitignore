@@ -11,7 +11,10 @@ node_modules
 
 # next.js
 .next
-/out/
+/web/out/
+
+# static files
+resume.pdf
 
 # production
 /build
