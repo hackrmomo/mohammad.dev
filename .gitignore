@@ -17,7 +17,7 @@ node_modules
 resume.pdf
 
 # production
-/build
+build
 
 # misc
 .DS_Store

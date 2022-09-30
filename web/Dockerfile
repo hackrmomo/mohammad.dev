@@ -2,6 +2,7 @@ FROM node:18
 WORKDIR /usr/local/share/mohammad.dev
 
 ARG NPM_TOKEN
+ARG PORT
 
 RUN npm config set "@fortawesome:registry" https://npm.fontawesome.com/
 RUN npm config set "//npm.fontawesome.com/:_authToken" ${NPM_TOKEN}

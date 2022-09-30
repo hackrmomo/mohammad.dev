@@ -10,7 +10,6 @@ services:
       server:
         aliases:
           - mohammad
-          - homemohammad
     build: 
       context: ./web
       args:
@@ -20,3 +19,18 @@ services:
       - .env
     volumes:
       - ./web:/usr/local/share/mohammad.dev
+  adminmohammad:
+    container_name: adminmohammad
+    restart: always
+    networks:
+      server:
+        aliases:
+          - adminmohammad
+    build: 
+      context: ./admin
+      args:
+        - PORT=${PORT}
+    env_file:
+      - .env
+    volumes:
+      - ./admin:/usr/local/share/admin.mohammad.dev
