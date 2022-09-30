@@ -34,3 +34,17 @@ services:
       - .env
     volumes:
       - ./admin:/usr/local/share/admin.mohammad.dev
+  dbmohammad:
+    container_name: dbmohammad
+    image: postgres
+    restart: always
+    # ports: # only needed for local development
+    #   - 5432:5432
+    networks:
+      server:
+        aliases:
+          - dbmohammad
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/postgresql/data
