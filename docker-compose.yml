@@ -19,27 +19,13 @@ services:
       - .env
     volumes:
       - ./web:/usr/local/share/mohammad.dev
-  adminmohammad:
-    container_name: adminmohammad
-    restart: always
-    networks:
-      server:
-        aliases:
-          - adminmohammad
-    build: 
-      context: ./admin
-      args:
-        - PORT=${PORT}
-    env_file:
-      - .env
-    volumes:
-      - ./admin:/usr/local/share/admin.mohammad.dev
+    depends_on:
+      - dbmohammad
+      - staticmohammad
   dbmohammad:
     container_name: dbmohammad
     image: postgres
     restart: always
-    # ports: # only needed for local development
-    #   - 5432:5432
     networks:
       server:
         aliases:
@@ -48,3 +34,17 @@ services:
       - .env
     volumes:
       - ./db:/var/lib/postgresql/data
+  staticmohammad:
+    container_name: staticmohammad
+    image: mohammaddev/static_content_server
+    restart: always
+    networks:
+      server:
+        aliases:
+          - staticmohammad
+    env_file:
+      - .env.static_content_server
+    volumes:
+      - ./static:/usr/local/share/static_content_server/static
+    depends_on:
+      - dbmohammad

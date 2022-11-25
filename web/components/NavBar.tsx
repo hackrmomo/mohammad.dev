@@ -68,7 +68,7 @@ export const NavBar = () => {
     { link: "/portfolio", title: "Portfolio" },
     { link: "/blog", title: "Blog" },
     { link: "/photography", title: "Photography" },
-    isMobile ? { link: toggle, title: "Switch Theme" } : null,
+    isMobile ? { link: toggle, title: isDarkMode ? "Light Mode" : "Dark Mode" } : null,
   ];
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
