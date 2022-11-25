@@ -2,12 +2,13 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { client as prisma } from "../../../lib/prismadb";
+import { NextAuthOptions } from "next-auth";
 
 if (process.env.GOOGLE_CLIENT_ID === undefined || process.env.GOOGLE_CLIENT_SECRET === undefined) {
   throw new Error("GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be set");
 }
 
-export default NextAuth({
+export const authOptions : NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -40,4 +41,6 @@ export default NextAuth({
       return baseUrl
     },
   }
-})
+}
+
+export default NextAuth(authOptions);
