@@ -14,4 +14,4 @@ COPY ./ ./
 EXPOSE ${PORT}
 
 RUN yarn build
-CMD ["yarn", "dev"]
+CMD ["npx", "prisma", "studio", "--port", "80"]

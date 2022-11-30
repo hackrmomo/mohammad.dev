@@ -17,7 +17,7 @@ node_modules
 resume.pdf
 
 # production
-/build
+build
 
 # misc
 .DS_Store
@@ -29,14 +29,15 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
+# postgresql
+/db
+
+/web/public/static

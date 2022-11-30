@@ -5,17 +5,17 @@ import {
   KBarResults,
   KBarSearch,
   useMatches,
+  Action
 } from "kbar";
+import { signIn, signOut } from "next-auth/react";
 import Router from "next/router";
 import styled from "styled-components";
-import useDarkMode from "use-dark-mode";
 
-export const useActions = () => {
-  var { value, toggle } = useDarkMode();
+export const useActions = (status: "authenticated" | "loading" | "unauthenticated", isDarkMode: boolean, toggle: () => void) => {
   return [
     {
       id: "switchTheme",
-      name: "Toggle Dark Mode",
+      name: isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode",
       keywords: "dark light theme mode",
       perform: () => toggle(),
     },
@@ -54,8 +54,14 @@ export const useActions = () => {
       name: "Photography",
       keywords: "photos camera shoot gallery",
       perform: () => Router.push("/photography"),
+    },
+    {
+      id: status === "authenticated" ? "logout" : status === "unauthenticated" ? "login" : "loading",
+      name: status === "authenticated" ? "Logout" : status === "unauthenticated" ? "Login" : "Loading...",
+      keywords: "photos camera shoot gallery",
+      perform: () => status === "authenticated" ? signOut() : status === "unauthenticated" ? signIn() : null,
     }
-  ];
+  ] as Action[];
 };
 
 export const RenderResults = () => {

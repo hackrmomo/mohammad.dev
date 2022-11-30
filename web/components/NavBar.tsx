@@ -61,18 +61,19 @@ export const NavBar = () => {
       </a>
     </Link>,
   ];
-  const Links = [
-    ["/#about", "About"],
-    ["/#contact", "Contact"],
-    ["/portfolio", "Portfolio"],
-    ["/blog", "Blog"],
-    ["/photography", "Photography"],
-    isMobile ? [toggle, "Switch Theme"] : null,
+  const Links: ({ link: string | (() => void), title: string } | null)[] = [
+    { link: "/#about", title: "About" },
+    { link: "/#contact", title: "Contact" },
+    { link: "/resume", title: "Resume" },
+    { link: "/portfolio", title: "Portfolio" },
+    { link: "/blog", title: "Blog" },
+    { link: "/photography", title: "Photography" },
+    isMobile ? { link: toggle, title: isDarkMode ? "Light Mode" : "Dark Mode" } : null,
   ];
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
-    <NavLink key={index} to={link![0]}>
-      {link![1] as string}
+    <NavLink key={index} to={link!.link}>
+      {link!.title}
     </NavLink>
   ));
 
