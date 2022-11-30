@@ -37,8 +37,10 @@ const Resume: NextPage = () => {
   }
 
   const getResumeFromEmail = async () => {
-    const result = await axios.get(`/api/resume/${email}`);
-    fileDownload(result.data, "Mohammad Al-Ahdal.pdf");
+    const result = await axios.get(`/api/resume/${email}`, {
+      responseType: "blob",
+    });
+    fileDownload(result.data, `Mohammad Al-Ahdal ${email.split("@")[1].split(".")[0]}.pdf`, "application/pdf");
   }
 
   return (
