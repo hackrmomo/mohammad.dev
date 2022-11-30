@@ -11,27 +11,14 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const resume = await client.resume.findUnique({
         where: {
-          id: id
+          domain: id.split("@")[1],
         }
       });
-      res.status(200).json({ resume });
-      break;
-
-    case "PUT":
-      if (!session) {
-        res.status(401).json({ message: "Unauthorized" });
+      if (!resume) {
+        res.status(404).json({ message: "Resume not found" });
         return;
       }
-      const updatedResume = await client.resume.update({
-        where: {
-          id: id
-        },
-        data: {
-          domain: req.body.domain,
-          src: req.body.src,
-        }
-      });
-      res.status(200).json({ resume: updatedResume });
+      res.status(200).redirect(resume.src);
       break;
 
     case "DELETE":

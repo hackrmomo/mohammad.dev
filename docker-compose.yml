@@ -19,9 +19,9 @@ services:
       - .env
     volumes:
       - ./web:/usr/local/share/mohammad.dev
+      - ./web/public/static:/usr/local/share/mohammad.dev/public/static
     depends_on:
       - dbmohammad
-      - staticmohammad
   dbmohammad:
     container_name: dbmohammad
     image: postgres
@@ -34,17 +34,18 @@ services:
       - .env
     volumes:
       - ./db:/var/lib/postgresql/data
-  staticmohammad:
-    container_name: staticmohammad
-    image: mohammaddev/static_content_server
+  studiomohammad:
+    container_name: studiomohammad
+    build: 
+      context: ./web
+      dockerfile: Dockerfile.studio
+      args:
+        - PORT=${PORT}
+        - NPM_TOKEN=${NPM_TOKEN}
     restart: always
     networks:
       server:
         aliases:
-          - staticmohammad
+          - studiomohammad
     env_file:
-      - .env.static_content_server
-    volumes:
-      - ./static:/usr/local/share/static_content_server/static
-    depends_on:
-      - dbmohammad
+      - .env

@@ -30,7 +30,6 @@ export const authOptions : NextAuthOptions = {
     async jwt({ token, account, profile }) {
       if(account && profile) {
         token.accessToken = account.access_token
-        // token.id = profile.id
       }
       return token
     },

@@ -39,3 +39,5 @@ yarn-error.log*
 
 # postgresql
 /db
+
+/web/public/static
