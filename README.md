@@ -20,9 +20,4 @@ sudo docker-compose up -d --build --force-recreate --remove-orphans
 ## Todo 📝
 - Add blog
 - Add portfolio
-- Add photography
-- Remove Login/Logout Functionality (since this is being hosted at home, I can simply update the website with a local only admin page)
-- Fix issue with k-bar not working correctly
 - make k-bar look nicer
-- maybe redesign the front page? maybe just a bit.
-- add ability to smooth scroll to sections on the front page
