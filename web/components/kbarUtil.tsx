@@ -123,11 +123,10 @@ export const RenderResults = () => {
 export const KbarResultsContainer = styled.div`
   z-index: 150;
   position: relative;
-  padding-top: 0.3rem;
+  margin-top: 5rem;
   transform: translateY(-0.3rem);
   background-color: ${({ theme }) => theme.sheet}D0;
-  border-bottom-right-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem;
+  border-radius: 0.3rem;
   > * > * > :last-child > * {
     padding-bottom: 1.05rem;
     border-bottom-right-radius: 0.3rem;
@@ -170,8 +169,8 @@ export const KbarSkeleton = () => {
               background: "var(--paper)",
               color: "var(--text)",
               border: "none",
-              padding: "1rem",
-              borderRadius: "0.3rem 0.3rem 0rem 0rem",
+              padding: "1.5rem",
+              borderRadius: "0.3rem",
               minWidth: 500,
               fontSize: "1.25rem",
               zIndex: 20,
