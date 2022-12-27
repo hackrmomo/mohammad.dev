@@ -144,14 +144,13 @@ const ExifContainer = styled.div<{ editing?: boolean }>`
   top: 0px;
   left: 0px;
   width: ${() => window.innerWidth > 576 ? "unset" : "100%"};
-  justify-content: center;
   align-items: center;
   z-index: 25;
   display: flex;
   padding: 1rem;
   color: white;
-  background-color: ${({ theme, editing }) => editing ? theme.background + "CC" : "transparent"};
-  font-size: 1.5rem;
+  background-color: ${({ theme, editing }) => window.innerWidth > 576 ? editing ? theme.background + "CC" : "transparent" : theme.background + "CC"};
+  font-size: ${() => window.innerWidth > 576 ? "1.5rem" : "1rem"};
   > * {
     display: flex;
     flex-direction: column;
