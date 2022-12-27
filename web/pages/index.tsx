@@ -13,7 +13,7 @@ const index: NextPage = () => {
         <title>Mohammad Al-Ahdal | Home</title>
       </Head>
       <VerticalWrapper>
-        <FullPage>
+        <FullPage id="~">
           <Home />
         </FullPage>
         <FullPage id="about">

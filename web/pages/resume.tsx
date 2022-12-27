@@ -1,5 +1,4 @@
 import { Button } from "@/components/Button";
-import { EditButton } from "@/components/EditButton";
 import { Text } from "@/components/Text";
 import { TextField } from "@/components/TextField";
 import axios from "axios";
@@ -9,9 +8,10 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import styled from "styled-components";
+import { useEditing } from "@/lib/useEditing";
 
 const Resume: NextPage = () => {
-  const [inEditMode, setInEditMode] = useState(false);
+  const { editing } = useEditing();
   const [email, setEmail] = useState("");
   const [domain, setDomain] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -30,7 +30,6 @@ const Resume: NextPage = () => {
     });
 
     if (result.data) {
-      setInEditMode(false);
       setFile(null);
       setDomain("");
     }
@@ -46,15 +45,12 @@ const Resume: NextPage = () => {
   return (
     <>
       <ResumeContainer>
-        {status === "authenticated" && <>
-          <EditButton onClick={() => setInEditMode(!inEditMode)} isActive={inEditMode} />
-        </>}
-        {!inEditMode && <>
+        {!editing && <>
           <Text variant="h3">To download my resume, please provide your email address</Text>
           <TextField placeholder="Email Address" onSubmit={getResumeFromEmail} value={email} onChange={(e) => { setEmail(e.target.value) }} />
           <Button onClick={getResumeFromEmail}>Download</Button>
         </>}
-        {inEditMode && <>
+        {editing && <>
           {file && <>
             <TextField onSubmit={addNewResume} placeholder="Provide domain" value={domain} onChange={(e) => { setDomain(e.target.value) }} />
             <Button onClick={addNewResume}>Add</Button>

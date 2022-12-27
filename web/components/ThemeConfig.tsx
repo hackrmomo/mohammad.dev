@@ -10,6 +10,7 @@ export interface ThemeProps {
   default: string;
   primary: string;
   secondary: string;
+  success: string;
 }
 
 export const lightTheme: ThemeProps = {
@@ -21,6 +22,7 @@ export const lightTheme: ThemeProps = {
   default: "#121212",
   primary: "#00D4C8",
   secondary: "#009990",
+  success: "#00826a",
 };
 
 export const darkTheme: ThemeProps = {
@@ -32,6 +34,7 @@ export const darkTheme: ThemeProps = {
   default: "#FFFFFF",
   primary: "#008078",
   secondary: "#00B2A7",
+  success: "#00d471",
 };
 
 export const useGlobalStyles = () => {
@@ -66,6 +69,9 @@ export const useGlobalStyles = () => {
     --paper: ${({ theme }) => theme.paper};
     --sheet: ${({ theme }) => theme.sheet};
     --text: ${({ theme }) => theme.text};
+    --primary: ${({ theme }) => theme.primary};
+    --secondary: ${({ theme }) => theme.secondary};
+    --success: ${({ theme }) => theme.success};
   }
   textarea:focus, input:focus {
     outline: none

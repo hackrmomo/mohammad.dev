@@ -7,10 +7,9 @@ interface NavLinkProps {
   special?: boolean;
   children: ReactNode;
   to: string | (() => void);
-  key: any;
 }
 
-export const NavLink = ({ special, children, to, key }: NavLinkProps) => {
+export const NavLink = ({ special, children, to }: NavLinkProps) => {
   const { asPath } = useRouter();
   const selected = asPath === to;
   const BoundingDiv = styled.div`
@@ -36,7 +35,7 @@ export const NavLink = ({ special, children, to, key }: NavLinkProps) => {
   return (
     <BoundingDiv>
       {typeof to === "string" ? (
-        <Link key={key} href={to}>{children}</Link>
+        <Link prefetch scroll={false} shallow href={to}>{children}</Link>
       ) : (
         <FunctionalLink onClick={to}>{children}</FunctionalLink>
       )}

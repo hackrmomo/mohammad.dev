@@ -8,6 +8,7 @@ import { darkTheme, useGlobalStyles, lightTheme } from "../components/ThemeConfi
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { KBarProvider, useKBar, useRegisterActions } from "kbar";
 import { SessionProvider, useSession } from "next-auth/react";
+import { useEditing, EditingProvider } from "@/lib/useEditing";
 
 import {
   useActions as kbarActions,
@@ -15,6 +16,7 @@ import {
 } from "../components/kbarUtil";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { Session } from "next-auth";
+import { DataProvider } from "@/lib/useData";
 
 config.autoAddCss = false;
 
@@ -59,23 +61,29 @@ function SessionFilledApp(props: { darkMode: DarkMode, mounted: boolean, childre
   const { value, toggle } = useDarkMode();
   const { darkMode, mounted, children } = props;
   const { status } = useSession();
-  
+  const { editing } = useEditing();
+
   return <>
-    <KBarProvider actions={kbarActions(status, value, toggle)}>
-      <KbarSkeleton />
-      {mounted && (
-        <InternalKbarUpdater {...props}>
-          <NavBar />
-          {children}
-        </InternalKbarUpdater>
-      )}
-    </KBarProvider>
+    <EditingProvider>
+      <DataProvider>
+        <KBarProvider actions={kbarActions(status, editing, value, toggle)}>
+          <KbarSkeleton />
+          {mounted && (
+            <InternalKbarUpdater {...props}>
+              <NavBar />
+              {children}
+            </InternalKbarUpdater>
+          )}
+        </KBarProvider>
+      </DataProvider>
+    </EditingProvider>
   </>;
 }
 
 function InternalKbarUpdater(props: { darkMode: DarkMode, children: ReactNode }) {
   const { status } = useSession();
-  useRegisterActions(kbarActions(status, props.darkMode.value, props.darkMode.toggle), [status, props.darkMode.value, props.darkMode.toggle]);
+  const { editing } = useEditing();
+  useRegisterActions(kbarActions(status, editing, props.darkMode.value, props.darkMode.toggle), [status, editing, props.darkMode.value, props.darkMode.toggle]);
   return <>
     {props.children}
   </>

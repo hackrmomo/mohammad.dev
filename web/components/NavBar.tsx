@@ -9,36 +9,27 @@ import { useWindowSize } from "./misc/useWindowSize";
 import { HamburgerIcon } from "./Hamburger";
 import DarkLogo from "../public/logoDark.png";
 import LightLogo from "../public/logoLight.png";
+import { useEditing } from "@/lib/useEditing";
 
 export const NavBar = () => {
-  const { value: isDarkMode, toggle } = useDarkMode();
+  const { value: isDarkMode, toggle: toggleDarkMode } = useDarkMode();
+  const { editing, setEditing } = useEditing();
   const [hasCompletedOnce, setHasCompletedOnce] = useState(false);
   const { isMobile } = useWindowSize();
 
   const NavContainer = styled.nav`
-    z-index: 10;
+    z-index: 5;
     position: fixed;
-    top: 0;
+    top: -5px;
     right: 0;
     left: 0;
     padding-left: 20px;
-    padding-top: 20px;
+    padding-top: 25px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
-    background-color: ${({ theme }) => theme.background};
-    ::before {
-      pointer-events: none;
-      content: "";
-      position: absolute;
-      height: 50px;
-      right: -20px;
-      top: 100%;
-      left: -20px;
-      background-image: linear-gradient(
-        ${({ theme }) => theme.background},
-        transparent
-      );
-    }
+    background-color: ${({ theme }) => theme.background}CC;
+    backdrop-filter: blur(15px);
   `;
   const LinksContainer = styled.div`
     display: flex;
@@ -50,7 +41,7 @@ export const NavBar = () => {
   `;
 
   const Logo = [
-    <Link key="logo" href="/">
+    <Link shallow scroll={false} key="logo" href="/#~">
       <a>
         <Image
           src={isDarkMode ? DarkLogo.src : LightLogo.src}
@@ -68,7 +59,8 @@ export const NavBar = () => {
     { link: "/portfolio", title: "Portfolio" },
     { link: "/blog", title: "Blog" },
     { link: "/photography", title: "Photography" },
-    isMobile ? { link: toggle, title: isDarkMode ? "Light Mode" : "Dark Mode" } : null,
+    isMobile ? { link: toggleDarkMode, title: isDarkMode ? "Light Mode" : "Dark Mode" } : null,
+    isMobile ? { link: () => setEditing(!editing), title: editing ? "Done Editing" : "Edit" } : null,
   ];
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (
