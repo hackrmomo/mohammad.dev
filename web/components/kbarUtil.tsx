@@ -11,6 +11,8 @@ import { signIn, signOut } from "next-auth/react";
 import Router from "next/router";
 import styled from "styled-components";
 import { setEditing } from "@/lib/useEditing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faInfoCircle, faEnvelope, faSunAlt, faMoonStars, faPage, faTerminal, faPenNib, faCamera, faRightToBracket, faRightFromBracket, faEdit, faCheck } from "@fortawesome/pro-thin-svg-icons";
 
 export const useActions = (status: "authenticated" | "loading" | "unauthenticated", isEditing: boolean, isDarkMode: boolean, toggle: () => void) => {
   const actions: Action[] = []
@@ -23,54 +25,63 @@ export const useActions = (status: "authenticated" | "loading" | "unauthenticate
     id: "switchTheme",
     name: isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode",
     keywords: "dark light theme mode",
+    icon: <FontAwesomeIcon icon={isDarkMode ? faSunAlt : faMoonStars} />,
     perform: () => toggle(),
   });
   actions.push({
     id: "/",
     name: "Home",
     keywords: "home",
+    icon: <FontAwesomeIcon icon={faHouse} />,
     perform: () => Router.push("/#~", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "#about",
     name: "About",
     keywords: "about mohammad hackr momo",
+    icon: <FontAwesomeIcon icon={faInfoCircle} />,
     perform: () => Router.push("/#about", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "#contact",
     name: "Contact",
     keywords: "contact mohammad hackr momo",
+    icon: <FontAwesomeIcon icon={faEnvelope} />,
     perform: () => Router.push("/#contact", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "/resume",
     name: "Resume",
     keywords: "resume work job hire",
+    icon: <FontAwesomeIcon icon={faPage} />,
     perform: () => Router.push("/resume", undefined, { shallow: true }),
   });
   actions.push({
     id: "/portfolio",
     name: "Portfolio",
     keywords: "doing things making engineering",
+    icon: <FontAwesomeIcon icon={faTerminal} />,
     perform: () => Router.push("/portfolio", undefined, { shallow: true }),
   });
   actions.push({
     id: "/blog",
     name: "Blog",
     keywords: "writing words",
+    icon: <FontAwesomeIcon icon={faPenNib} />,
     perform: () => Router.push("/blog", undefined, { shallow: true }),
   });
   actions.push({
     id: "/photography",
     name: "Photography",
     keywords: "photos camera shoot gallery",
+    icon: <FontAwesomeIcon icon={faCamera} />,
     perform: () => Router.push("/photography", undefined, { shallow: true }),
   });
   actions.push({
     id: "authenticate",
     name: status === "authenticated" ? "Logout" : status === "unauthenticated" ? "Login" : "Loading...",
     keywords: "photos camera shoot gallery",
+    icon: <FontAwesomeIcon icon={status === "authenticated" ? faRightFromBracket : faRightToBracket} />,
     perform: () => status === "authenticated" ? signOut() : status === "unauthenticated" ? signIn() : null,
   });
   if (status === "authenticated") {
@@ -78,6 +89,7 @@ export const useActions = (status: "authenticated" | "loading" | "unauthenticate
       id: "editing",
       name: isEditing ? "Stop Editing" : "Edit",
       keywords: "edit",
+      icon: <FontAwesomeIcon icon={isEditing ? faCheck : faEdit} />,
       perform: () => isEditing ? setEditing(false) : setEditing(true),
     });
   }
@@ -97,7 +109,10 @@ export const RenderResults = () => {
           typeof item === "string" ? (
             <>{item}</>
           ) : (
-            <KbarResultItem id={item.id} selected={active}>{item.name}</KbarResultItem>
+            <KbarResultItem id={item.id} selected={active}>
+              {item.icon}
+              {item.name}
+            </KbarResultItem>
           )
         }
       />
@@ -110,7 +125,7 @@ export const KbarResultsContainer = styled.div`
   position: relative;
   padding-top: 0.3rem;
   transform: translateY(-0.3rem);
-  background-color: ${({ theme }) => theme.sheet};
+  background-color: ${({ theme }) => theme.sheet}D0;
   border-bottom-right-radius: 0.3rem;
   border-bottom-left-radius: 0.3rem;
   > * > * > :last-child > * {
@@ -126,17 +141,24 @@ export const KbarResultsContainer = styled.div`
 
 export const KbarResultItem = styled.div<{ selected: boolean }>`
   font-size: 1.25rem;
-  padding: 0.75rem;
+  padding: 1.5rem;
   transition: color 150ms, background-color 150ms;
   color: ${({ theme, selected }) => (selected ? "white" : theme.text)};
   background-color: ${({ theme, selected }) =>
-    selected ? `${theme.secondary}80` : "unset"};
+    selected ? `${theme.secondary}30` : "unset"};
+
+  > svg {
+    margin-right: 1rem;
+  }
 `;
 
 export const KbarSkeleton = () => {
   return (
     <KBarPortal>
-      <KBarPositioner>
+      <KBarPositioner style={{
+        backdropFilter: "blur(10px)",
+        zIndex: 100,
+      }}>
         <KBarAnimator
           style={{
             filter: "drop-shadow(0px 0px 10px var(--shadow))",
