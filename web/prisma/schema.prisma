@@ -78,7 +78,13 @@ model Photograph {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
-  src       String
+  src       String   @unique
+  takenAt   DateTime
+  iso       String
+  aperture  String
+  focal     String
+  shutter   String
+  location  String
 }
 
 model Resume {

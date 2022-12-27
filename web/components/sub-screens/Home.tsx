@@ -16,7 +16,7 @@ export const Home = () => {
           <Text variant="h1">
             {"Hey, I'm "}
             <Text raise variant="span" color="primary">
-              <Link href="#about">
+              <Link href="#about" scroll={false}>
                 <a>Mohammad</a>
               </Link>
             </Text>

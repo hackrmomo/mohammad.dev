@@ -33,7 +33,7 @@ export const About = () => {
             <br />
           </Text>
           <Text raise color="primary" variant="h3">
-            <Link href="#contact">
+            <Link href="#contact" scroll={false}>
               <a>Let&apos;s chat.</a>
             </Link>
           </Text>

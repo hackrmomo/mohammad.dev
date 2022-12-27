@@ -16,6 +16,37 @@ export default async function handler(req: Request, res: Response) {
         }
       });
       res.status(200).json({ photograph });
+      break;
+
+    case "PUT":
+      if (!session) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+      }
+      const photographToUpdate = await client.photograph.findUnique({
+        where: {
+          id: id
+        }
+      });
+      if (!photographToUpdate) {
+        res.status(404).json({ message: "Photograph not found" });
+        return;
+      }
+      const { aperture, focal, shutter, iso, location } = req.body;
+      await client.photograph.update({
+        where: {
+          id: id
+        },
+        data: {
+          aperture: aperture,
+          focal: focal,
+          shutter: shutter,
+          iso: iso,
+          location: location,
+        }
+      });
+      res.status(200).json({ message: "updated" });
+      break;
 
     case "DELETE":
       if (!session) {
@@ -38,5 +69,6 @@ export default async function handler(req: Request, res: Response) {
         }
       });
       res.status(200).json({ message: "deleted" });
+      break;
   }
 }
