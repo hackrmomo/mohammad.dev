@@ -22,7 +22,7 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const photographs = await client.photograph.findMany({
         orderBy: {
-          createdAt: "desc"
+          createdAt: "asc"
         }
       });
       res.status(200).json({ photographs });

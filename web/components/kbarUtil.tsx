@@ -12,7 +12,7 @@ import Router from "next/router";
 import styled from "styled-components";
 import { setEditing } from "@/lib/useEditing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faInfoCircle, faEnvelope, faSunAlt, faMoonStars, faPage, faTerminal, faPenNib, faCamera, faRightToBracket, faRightFromBracket, faEdit, faCheck } from "@fortawesome/pro-thin-svg-icons";
+import { faHouse, faInfoCircle, faEnvelope, faSunAlt, faMoonStars, faPage, faTerminal, faPenNib, faCamera, faRightToBracket, faRightFromBracket, faEdit, faCheck } from "@fortawesome/pro-light-svg-icons";
 
 export const useActions = (status: "authenticated" | "loading" | "unauthenticated", isEditing: boolean, isDarkMode: boolean, toggle: () => void) => {
   const actions: Action[] = []
