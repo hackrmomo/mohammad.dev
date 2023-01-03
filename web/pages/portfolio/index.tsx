@@ -1,11 +1,23 @@
+import { PortfolioItem } from "@/components/PortfolioItem";
 import { NextPage } from "next";
+import { useData } from "@/lib/useData";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const Portfolio: NextPage = () => {
+  const { portfolio: { items: portfolioItems, get } } = useData();
+
+  useEffect(() => {
+    get();
+  }, []);
+
   return (
     <>
       <PortfolioContainer>
-        <h2>Under Construction</h2>
+        {portfolioItems.map((item) => (
+          <PortfolioItem key={item.id} portfolioItem={item} />
+        ))}
+        <PortfolioItem />
       </PortfolioContainer>
     </>
   );

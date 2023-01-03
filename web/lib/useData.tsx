@@ -8,6 +8,8 @@ interface AddPhotoProps {
   fileContent: string;
 }
 
+type AddOrModifyPortfolioItemProps = Partial<Portfolio> & {imageContent: string | undefined};
+
 
 interface DataContextProps {
   photos: {
@@ -21,9 +23,9 @@ interface DataContextProps {
   portfolio: {
     items: Portfolio[];
     get: () => Promise<void>;
-    add: (portfolioItem: Portfolio) => Promise<void>;
+    add: (portfolioItem: AddOrModifyPortfolioItemProps) => Promise<void>;
     delete: (id: string) => Promise<void>;
-    modify: (portfolioItem: Portfolio) => Promise<void>;
+    modify: (portfolioItem: AddOrModifyPortfolioItemProps) => Promise<void>;
   }
 
   blog: {
@@ -86,10 +88,10 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const getPortfolio = async () => {
     const { data } = await axios.get('/api/portfolio');
-    setPortfolio(data.portfolio);
+    setPortfolio(data.portfolios);
   };
 
-  const addPortfolioItem = async (portfolioItem: Portfolio) => {
+  const addPortfolioItem = async (portfolioItem: AddOrModifyPortfolioItemProps) => {
     await axios.post('/api/portfolio', portfolioItem);
     await getPortfolio();
   };
@@ -99,7 +101,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     await getPortfolio();
   };
 
-  const modifyPortfolioItem = async (portfolioItem: Portfolio) => {
+  const modifyPortfolioItem = async (portfolioItem: AddOrModifyPortfolioItemProps) => {
     await axios.put(`/api/portfolio/${portfolioItem.id}`, portfolioItem);
     await getPortfolio();
   };
