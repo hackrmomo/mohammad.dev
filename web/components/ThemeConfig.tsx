@@ -11,6 +11,7 @@ export interface ThemeProps {
   primary: string;
   secondary: string;
   success: string;
+  error: string;
 }
 
 export const lightTheme: ThemeProps = {
@@ -23,6 +24,7 @@ export const lightTheme: ThemeProps = {
   primary: "#00D4C8",
   secondary: "#009990",
   success: "#00826a",
+  error: "#a43434",
 };
 
 export const darkTheme: ThemeProps = {
@@ -35,6 +37,7 @@ export const darkTheme: ThemeProps = {
   primary: "#008078",
   secondary: "#00B2A7",
   success: "#00d471",
+  error: "#ff4d4d",
 };
 
 export const useGlobalStyles = () => {
@@ -65,6 +68,7 @@ export const useGlobalStyles = () => {
     font-size: ${isMobile ? "0.75rem" : "1.5rem"};
   }
   :root {
+    --background: ${({ theme }) => theme.background};
     --shadow: ${({ theme }) => theme.shadow};
     --paper: ${({ theme }) => theme.paper};
     --sheet: ${({ theme }) => theme.sheet};
@@ -72,6 +76,7 @@ export const useGlobalStyles = () => {
     --primary: ${({ theme }) => theme.primary};
     --secondary: ${({ theme }) => theme.secondary};
     --success: ${({ theme }) => theme.success};
+    --error: ${({theme}) => theme.error};
   }
   textarea:focus, input:focus {
     outline: none

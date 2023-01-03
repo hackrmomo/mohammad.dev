@@ -3,7 +3,7 @@ import { useEditing } from "@/lib/useEditing";
 import { useData } from "@/lib/useData";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { faChevronRight, faChevronLeft, faCheck } from "@fortawesome/pro-thin-svg-icons"
+import { faChevronRight, faChevronLeft, faCheck } from "@fortawesome/pro-light-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FadeIn from "react-fade-in/lib/FadeIn";
 import { TextField } from "./TextField";

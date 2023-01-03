@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Photograph } from "@prisma/client"
 import axios from "axios";
 import { useEditing } from "@/lib/useEditing";
-import { faTrash, faPlus, faCheck, faMultiply } from "@fortawesome/pro-thin-svg-icons";
+import { faTrash, faPlus, faCheck, faMultiply } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FileUploader } from "react-drag-drop-files";
 import { useData } from "@/lib/useData";
