@@ -15,7 +15,7 @@ export default async function handler(req: Request, res: Response) {
         }
       });
       if (!resume) {
-        res.status(200).redirect("https://mohammad.dev/static/resume/Mohammad%20Al-Ahdal%20BASE.pdf");
+        res.status(200).redirect(`${process.env["MOHAMMAD_URL"] ?? ""}static/resume/Mohammad%20Al-Ahdal%20BASE.pdf`);
         return;
       }
       res.status(200).redirect(resume.src);
