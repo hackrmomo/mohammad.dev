@@ -13,5 +13,6 @@ COPY ./ ./
 
 EXPOSE ${PORT}
 
+run yarn prisma generate
 RUN yarn build
 CMD ["yarn", "dev"]
