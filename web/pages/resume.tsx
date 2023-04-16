@@ -5,7 +5,7 @@ import axios from "axios";
 import fileDownload from "js-file-download";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import styled from "styled-components";
 import { useEditing } from "@/lib/useEditing";
@@ -13,6 +13,7 @@ import { useEditing } from "@/lib/useEditing";
 const Resume: NextPage = () => {
   const { editing } = useEditing();
   const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const [domain, setDomain] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const { status } = useSession();
@@ -35,6 +36,15 @@ const Resume: NextPage = () => {
     }
   }
 
+  useEffect(() => {
+    const emailRegex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+    if (emailRegex.test(email)) {
+      setIsValidEmail(true)
+    } else {
+      setIsValidEmail(false)
+    }
+  })
+
   const getResumeFromEmail = async () => {
     const result = await axios.get(`/api/resume/${email}`, {
       responseType: "blob",
@@ -48,7 +58,7 @@ const Resume: NextPage = () => {
         {!editing && <>
           <Text variant="h3">To download my resume, please provide your email address</Text>
           <TextField placeholder="Email Address" onSubmit={getResumeFromEmail} value={email} onChange={(e) => { setEmail(e.target.value) }} />
-          <Button onClick={getResumeFromEmail}>Download</Button>
+          <Button disabled={!isValidEmail} onClick={getResumeFromEmail}>Download</Button>
         </>}
         {editing && <>
           {file && <>

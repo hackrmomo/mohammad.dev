@@ -6,11 +6,12 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   loading?: boolean;
+  disabled?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
   return (
-    <StyledButton onClick={props.onClick}>
+    <StyledButton {...props}>
       {props.loading && (
         <LoadingIcon reversed style={{ marginTop: -3, marginBottom: -3 }} size={30} />
       )}
@@ -19,7 +20,7 @@ export const Button = (props: ButtonProps) => {
   );
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
   margin: 15px;
   min-width: 10rem;
   font-size: 1.25rem;
@@ -28,7 +29,7 @@ const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.default};
   border: none;
   color: ${({ theme }) => theme.background};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: transform 300ms, filter 300ms;
   :hover {
     transform: translateY(-10%);
