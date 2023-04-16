@@ -19,7 +19,7 @@ export default async function handler(req: Request, res: Response) {
         return;
       }
       try {
-        const resumeUrl = makeUrlFromFileName("resume", "Mohammad Al-Ahdal " +  req.body.domain.split(".")[0].toUpperCase() + ".pdf");
+        const resumeUrl = makeUrlFromFileName("resume", "Mohammad Al-Ahdal " +  req.body.domain.split(".")[0].toUpperCase() ?? "BASE" + ".pdf");
         console.log(resumeUrl);
         await writeStaticFile(resumeUrl, req.body.resume, StaticFileType.PDF);
         const resume = await client.resume.upsert({
