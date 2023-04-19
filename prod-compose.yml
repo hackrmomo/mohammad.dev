@@ -12,6 +12,7 @@ services:
           - mohammad
     build: 
       context: ./web
+      dockerfile: Dockerfile.prod
       args:
         - PORT=${PORT}
         - NPM_TOKEN=${NPM_TOKEN}
