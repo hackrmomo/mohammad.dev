@@ -51,7 +51,7 @@ const BlogsPage: NextPage = () => {
           <h3>Posted Blog Items</h3>
           <BlogListContainer>
             {posts.map((post) => (
-              <BlogItem blog={post} onDelete={(id) => {
+              <BlogItem key={post.id} blog={post} onDelete={(id) => {
                 setPosts(posts.filter((post) => post.id !== id))
               }} />
             ))}
