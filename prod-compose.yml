@@ -19,7 +19,6 @@ services:
     env_file:
       - .env
     volumes:
-      - ./web:/usr/local/share/mohammad.dev
       - ./web/public/static:/usr/local/share/mohammad.dev/public/static
     depends_on:
       - dbmohammad
