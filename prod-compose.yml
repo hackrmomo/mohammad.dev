@@ -1,0 +1,36 @@
+version: '3.9'
+networks:
+  server:
+    external: true
+services:
+  mohammad:
+    container_name: mohammad
+    restart: always
+    networks:
+      server:
+        aliases:
+          - mohammad
+    build: 
+      context: ./web
+      args:
+        - PORT=${PORT}
+        - NPM_TOKEN=${NPM_TOKEN}
+    env_file:
+      - .env
+    volumes:
+      - ./web:/usr/local/share/mohammad.dev
+      - ./web/public/static:/usr/local/share/mohammad.dev/public/static
+    depends_on:
+      - dbmohammad
+  dbmohammad:
+    container_name: dbmohammad
+    image: postgres
+    restart: always
+    networks:
+      server:
+        aliases:
+          - dbmohammad
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/postgresql/data

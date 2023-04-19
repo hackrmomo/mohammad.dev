@@ -82,4 +82,4 @@ jobs:
             git reset --hard
             git pull
             # start docker compose
-            echo $PASS | sudo -S docker-compose up -d --build --force-recreate
+            echo $PASS | sudo -S docker-compose -f prod-compose.yml up -d --build --force-recreate
