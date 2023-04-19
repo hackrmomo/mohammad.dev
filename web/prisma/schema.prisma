@@ -71,8 +71,7 @@ model Blog {
   title     String   @db.VarChar(255)
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
-  markdown  String
-  link      String?
+  markdown  String   @db.Text
 }
 
 model Photograph {

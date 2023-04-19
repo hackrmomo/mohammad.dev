@@ -7,11 +7,13 @@ export interface ThemeProps {
   sheet: string; // sheet is a secondary paper like item
   shadow: string;
   text: string;
+  subduedText: string;
   default: string;
   primary: string;
   secondary: string;
   success: string;
   error: string;
+  svgFilter: string;
 }
 
 export const lightTheme: ThemeProps = {
@@ -20,11 +22,13 @@ export const lightTheme: ThemeProps = {
   sheet: "#F9F9F9",
   shadow: "#00000030",
   text: "#121212",
+  subduedText: "#12121280",
   default: "#121212",
   primary: "#00D4C8",
   secondary: "#009990",
   success: "#00826a",
   error: "#a43434",
+  svgFilter: "invert(0%)",
 };
 
 export const darkTheme: ThemeProps = {
@@ -33,11 +37,13 @@ export const darkTheme: ThemeProps = {
   sheet: "#333333",
   shadow: "#000000",
   text: "#FFFFFF",
+  subduedText: "#FFFFFF80",
   default: "#FFFFFF",
   primary: "#008078",
   secondary: "#00B2A7",
   success: "#00d471",
   error: "#ff4d4d",
+  svgFilter: "invert(100%)",
 };
 
 export const useGlobalStyles = () => {

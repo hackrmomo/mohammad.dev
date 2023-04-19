@@ -37,6 +37,7 @@
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.8",
     "react-fade-in": "^2.0.1",
+    "react-quill": "^2.0.0",
     "styled-components": "^5.3.6",
     "three": "^0.151.3",
     "ts-exif-parser": "^0.2.2",

@@ -1,17 +1,21 @@
 import { MouseEventHandler, ReactNode } from "react";
 import styled from "styled-components";
 import { LoadingIcon } from "./loading/LoadingIcon";
+import { useRouter } from "next/router";
 
 interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   loading?: boolean;
   disabled?: boolean;
+  href?: string;
 }
 
 export const Button = (props: ButtonProps) => {
+  const { push } = useRouter();
+
   return (
-    <StyledButton {...props}>
+    <StyledButton {...props} onClick={props.href ? () => push(props.href!) : props.onClick}>
       {props.loading && (
         <LoadingIcon reversed style={{ marginTop: -3, marginBottom: -3 }} size={30} />
       )}
