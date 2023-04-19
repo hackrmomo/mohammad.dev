@@ -1,8 +1,12 @@
 import { client } from "@/lib/prismadb";
-import { NextApiRequest as Request, NextApiResponse as Response } from "next"
+import { NextApiRequest as Request, NextApiResponse as Response } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
-import { writeStaticFile, makeUrlFromFileName, StaticFileType } from "@/lib/staticNext";
+import {
+  writeStaticFile,
+  makeUrlFromFileName,
+  StaticFileType,
+} from "@/lib/staticNext";
 
 export const config = {
   api: {
@@ -10,7 +14,7 @@ export const config = {
       sizeLimit: "50mb",
     },
   },
-}
+};
 
 export default async function handler(req: Request, res: Response) {
   const { id } = req.query as { id: string };
@@ -20,8 +24,8 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const portfolio = await client.portfolio.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ portfolio });
       break;
@@ -34,21 +38,25 @@ export default async function handler(req: Request, res: Response) {
       let portfolioImageSrc: string | undefined = undefined;
       try {
         portfolioImageSrc = makeUrlFromFileName("portfolio", id + ".jpg");
-        await writeStaticFile(portfolioImageSrc, req.body.imageContent, StaticFileType.IMAGE);
+        await writeStaticFile(
+          portfolioImageSrc,
+          req.body.imageContent,
+          StaticFileType.IMAGE
+        );
       } catch (e) {
         portfolioImageSrc = undefined;
         console.error(e);
       }
       const updatedPortfolio = await client.portfolio.update({
         where: {
-          id: id
+          id: id,
         },
         data: {
           description: req.body.description,
           link: req.body.link,
           title: req.body.title,
           imageSrc: portfolioImageSrc,
-        }
+        },
       });
       res.status(200).json({ portfolio: updatedPortfolio });
       break;
@@ -60,8 +68,8 @@ export default async function handler(req: Request, res: Response) {
       }
       await client.portfolio.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ message: "deleted" });
       break;

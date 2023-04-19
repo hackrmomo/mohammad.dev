@@ -15,9 +15,16 @@ export const Button = (props: ButtonProps) => {
   const { push } = useRouter();
 
   return (
-    <StyledButton {...props} onClick={props.href ? () => push(props.href!) : props.onClick}>
+    <StyledButton
+      {...props}
+      onClick={props.href ? () => push(props.href!) : props.onClick}
+    >
       {props.loading && (
-        <LoadingIcon reversed style={{ marginTop: -3, marginBottom: -3 }} size={30} />
+        <LoadingIcon
+          reversed
+          style={{ marginTop: -3, marginBottom: -3 }}
+          size={30}
+        />
       )}
       {!props.loading && props.children}
     </StyledButton>

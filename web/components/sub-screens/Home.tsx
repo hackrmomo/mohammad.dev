@@ -5,7 +5,11 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeBranch } from "@fortawesome/pro-light-svg-icons";
-import { faLinkedinIn, faTwitch, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faLinkedinIn,
+  faTwitch,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 export const Home = () => {
@@ -23,13 +27,11 @@ export const Home = () => {
             .
           </Text>
           <Text variant="h2">
-            I&apos;m a Software Developer from Calgary, AB, Canada. <br /> I love
-            building apps of all kinds, playing video games, <br /> taking
+            I&apos;m a Software Developer from Calgary, AB, Canada. <br /> I
+            love building apps of all kinds, playing video games, <br /> taking
             photos, and travelling!
           </Text>
-          <Text color="#808080">
-            👾 we&apos;re still under construction 👾
-          </Text>
+          <Text color="#808080">👾 we&apos;re still under construction 👾</Text>
           <FadeIn wrapperTag={HorizontalWrapper}>
             <Text raise variant="h3" color="var(--text)">
               <a href="https://github.com/hackrmomo">

@@ -34,45 +34,82 @@ const Resume: NextPage = () => {
       setFile(null);
       setDomain("");
     }
-  }
+  };
 
   useEffect(() => {
-    const emailRegex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+    const emailRegex = new RegExp(
+      /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+    );
     if (emailRegex.test(email)) {
-      setIsValidEmail(true)
+      setIsValidEmail(true);
     } else {
-      setIsValidEmail(false)
+      setIsValidEmail(false);
     }
-  })
+  });
 
   const getResumeFromEmail = async () => {
     const result = await axios.get(`/api/resume/${email}`, {
       responseType: "blob",
     });
-    fileDownload(result.data, `Mohammad Al-Ahdal ${email.split("@")[1].split(".")[0]}.pdf`, "application/pdf");
-  }
+    fileDownload(
+      result.data,
+      `Mohammad Al-Ahdal ${email.split("@")[1].split(".")[0]}.pdf`,
+      "application/pdf"
+    );
+  };
 
   return (
     <>
       <ResumeContainer>
-        {!editing && <>
-          <Text variant="h3">To download my resume, please provide your email address</Text>
-          <TextField placeholder="Email Address" onSubmit={getResumeFromEmail} value={email} onChange={(e) => { setEmail(e.target.value) }} />
-          <Button disabled={!isValidEmail} onClick={getResumeFromEmail}>Download</Button>
-        </>}
-        {editing && <>
-          {file && <>
-            <TextField onSubmit={addNewResume} placeholder="Provide domain" value={domain} onChange={(e) => { setDomain(e.target.value) }} />
-            <Button onClick={addNewResume}>Add</Button>
-          </>}
-          {!file && <>
-            <FileUploader types={["PDF"]} handleChange={(file: File) => { setFile(file) }}>
-              <DropZone>
-                <Text variant="h3">Drop your resume here</Text>
-              </DropZone>
-            </FileUploader>
-          </>}
-        </>}
+        {!editing && (
+          <>
+            <Text variant="h3">
+              To download my resume, please provide your email address
+            </Text>
+            <TextField
+              placeholder="Email Address"
+              onSubmit={getResumeFromEmail}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            <Button disabled={!isValidEmail} onClick={getResumeFromEmail}>
+              Download
+            </Button>
+          </>
+        )}
+        {editing && (
+          <>
+            {file && (
+              <>
+                <TextField
+                  onSubmit={addNewResume}
+                  placeholder="Provide domain"
+                  value={domain}
+                  onChange={(e) => {
+                    setDomain(e.target.value);
+                  }}
+                />
+                <Button onClick={addNewResume}>Add</Button>
+              </>
+            )}
+            {!file && (
+              <>
+                <FileUploader
+                  types={["PDF"]}
+                  handleChange={(file: File) => {
+                    setFile(file);
+                  }}
+                >
+                  <DropZone>
+                    <Text variant="h3">Drop your resume here</Text>
+                  </DropZone>
+                </FileUploader>
+              </>
+            )}
+          </>
+        )}
       </ResumeContainer>
     </>
   );
@@ -100,7 +137,7 @@ const DropZone = styled.div`
   left: 15%;
   right: 15%;
   bottom: 15%;
-  border: 2px dashed ${props => props.theme.primary};
+  border: 2px dashed ${(props) => props.theme.primary};
   border-radius: 20px;
   background: transparent;
   padding: 20px;
@@ -114,7 +151,7 @@ const DropZone = styled.div`
   align-items: center;
 
   :hover {
-    border: 2px dashed ${props => props.theme.secondary};
+    border: 2px dashed ${(props) => props.theme.secondary};
     filter: blur(0px);
   }
 `;

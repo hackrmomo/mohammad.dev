@@ -5,21 +5,32 @@ import { useState } from "react";
 import { Button } from "./Button";
 import axios from "axios";
 
-
-export const BlogItem = ({ blog, onDelete }: { blog: Blog, onDelete: (id: string) => void }) => {
+export const BlogItem = ({
+  blog,
+  onDelete,
+}: {
+  blog: Blog;
+  onDelete: (id: string) => void;
+}) => {
   const { editing } = useEditing();
   return (
     <BlogItemContainer>
       <h2>{blog.title}</h2>
       <div dangerouslySetInnerHTML={{ __html: blog.markdown }}></div>
       <ActionContainer>
-        <Button href={`/blog/${blog.id}`}>
-          {editing ? "Edit" : "View"}
-        </Button>
-        {editing && <>
-          <Button onClick={async () => { await axios.delete(`/api/blog/${blog.id}`); onDelete(blog.id) }}>Delete</Button>
-        </>
-        }
+        <Button href={`/blog/${blog.id}`}>{editing ? "Edit" : "View"}</Button>
+        {editing && (
+          <>
+            <Button
+              onClick={async () => {
+                await axios.delete(`/api/blog/${blog.id}`);
+                onDelete(blog.id);
+              }}
+            >
+              Delete
+            </Button>
+          </>
+        )}
       </ActionContainer>
     </BlogItemContainer>
   );
@@ -71,7 +82,11 @@ const ActionContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   gap: 1rem;
-  background: linear-gradient( 0deg, ${({ theme }) => theme.paper} 40%, ${({ theme }) => theme.paper}00 100%);
+  background: linear-gradient(
+    0deg,
+    ${({ theme }) => theme.paper} 40%,
+    ${({ theme }) => theme.paper}00 100%
+  );
   > * {
     margin: 0rem;
     z-index: 1;

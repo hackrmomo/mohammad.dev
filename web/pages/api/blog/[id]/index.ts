@@ -1,5 +1,5 @@
 import { client } from "@/lib/prismadb";
-import { NextApiRequest as Request, NextApiResponse as Response } from "next"
+import { NextApiRequest as Request, NextApiResponse as Response } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 import { removeStaticFile } from "@/lib/staticNext";
@@ -16,8 +16,8 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const blog = await client.blog.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ blog });
       break;
@@ -29,13 +29,18 @@ export default async function handler(req: Request, res: Response) {
       }
       const oldBlog = await client.blog.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
 
-
-      const oldImgSrcs = (oldBlog?.markdown.match(/<img.*?src="(.*?)".*?>/g))?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
-      const omittedImgSrcs: string[] = (req.body.markdown.match(/<img.*?src="(.*?)".*?>/g)).map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
+      const oldImgSrcs =
+        oldBlog?.markdown
+          .match(/<img.*?src="(.*?)".*?>/g)
+          ?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
+      const omittedImgSrcs: string[] =
+        req.body.markdown
+          .match(/<img.*?src="(.*?)".*?>/g)
+          .map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of oldImgSrcs) {
         if (imgSrc && imgSrc.startsWith(process.env.MOHAMMAD_URL!)) {
           if (!omittedImgSrcs.includes(imgSrc)) {
@@ -48,7 +53,10 @@ export default async function handler(req: Request, res: Response) {
         }
       }
 
-      const newImgSrcs: (string | undefined)[] = (req.body.markdown.match(/<img.*?src="(.*?)".*?>/g)).map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
+      const newImgSrcs: (string | undefined)[] =
+        req.body.markdown
+          .match(/<img.*?src="(.*?)".*?>/g)
+          .map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of newImgSrcs) {
         try {
           if (imgSrc && imgSrc.startsWith("data:")) {
@@ -65,12 +73,12 @@ export default async function handler(req: Request, res: Response) {
 
       const updatedBlog = await client.blog.update({
         where: {
-          id: id
+          id: id,
         },
         data: {
           title: req.body.title,
           markdown: req.body.markdown,
-        }
+        },
       });
       res.status(200).json({ blog: updatedBlog });
       break;
@@ -82,11 +90,14 @@ export default async function handler(req: Request, res: Response) {
       }
       const deletedBlog = await client.blog.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
 
-      const imgSrcs = (deletedBlog.markdown.match(/<img.*?src="(.*?)".*?>/g))?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
+      const imgSrcs =
+        deletedBlog.markdown
+          .match(/<img.*?src="(.*?)".*?>/g)
+          ?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of imgSrcs) {
         if (imgSrc && imgSrc.startsWith(process.env.MOHAMMAD_URL!)) {
           try {

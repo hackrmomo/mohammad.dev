@@ -5,19 +5,38 @@ import {
   KBarResults,
   KBarSearch,
   useMatches,
-  Action
+  Action,
 } from "kbar";
 import { signIn, signOut } from "next-auth/react";
 import Router from "next/router";
 import styled from "styled-components";
 import { setEditing } from "@/lib/useEditing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faInfoCircle, faEnvelope, faSunAlt, faMoonStars, faPage, faTerminal, faPenNib, faCamera, faRightToBracket, faRightFromBracket, faEdit, faCheck } from "@fortawesome/pro-light-svg-icons";
+import {
+  faHouse,
+  faInfoCircle,
+  faEnvelope,
+  faSunAlt,
+  faMoonStars,
+  faPage,
+  faTerminal,
+  faPenNib,
+  faCamera,
+  faRightToBracket,
+  faRightFromBracket,
+  faEdit,
+  faCheck,
+} from "@fortawesome/pro-light-svg-icons";
 
-export const useActions = (status: "authenticated" | "loading" | "unauthenticated", isEditing: boolean, isDarkMode: boolean, toggle: () => void) => {
-  const actions: Action[] = []
+export const useActions = (
+  status: "authenticated" | "loading" | "unauthenticated",
+  isEditing: boolean,
+  isDarkMode: boolean,
+  toggle: () => void
+) => {
+  const actions: Action[] = [];
   try {
-    Router.prefetch("/")
+    Router.prefetch("/");
   } catch {
     // Do nothing. Sometimes this fails on page load since the router isn't used as a client-side component.
   }
@@ -33,21 +52,24 @@ export const useActions = (status: "authenticated" | "loading" | "unauthenticate
     name: "Home",
     keywords: "home",
     icon: <FontAwesomeIcon icon={faHouse} />,
-    perform: () => Router.push("/#~", undefined, { shallow: true, scroll: false }),
+    perform: () =>
+      Router.push("/#~", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "#about",
     name: "About",
     keywords: "about mohammad hackr momo",
     icon: <FontAwesomeIcon icon={faInfoCircle} />,
-    perform: () => Router.push("/#about", undefined, { shallow: true, scroll: false }),
+    perform: () =>
+      Router.push("/#about", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "#contact",
     name: "Contact",
     keywords: "contact mohammad hackr momo",
     icon: <FontAwesomeIcon icon={faEnvelope} />,
-    perform: () => Router.push("/#contact", undefined, { shallow: true, scroll: false }),
+    perform: () =>
+      Router.push("/#contact", undefined, { shallow: true, scroll: false }),
   });
   actions.push({
     id: "/resume",
@@ -79,10 +101,26 @@ export const useActions = (status: "authenticated" | "loading" | "unauthenticate
   });
   actions.push({
     id: "authenticate",
-    name: status === "authenticated" ? "Logout" : status === "unauthenticated" ? "Login" : "Loading...",
+    name:
+      status === "authenticated"
+        ? "Logout"
+        : status === "unauthenticated"
+        ? "Login"
+        : "Loading...",
     keywords: "photos camera shoot gallery",
-    icon: <FontAwesomeIcon icon={status === "authenticated" ? faRightFromBracket : faRightToBracket} />,
-    perform: () => status === "authenticated" ? signOut() : status === "unauthenticated" ? signIn() : null,
+    icon: (
+      <FontAwesomeIcon
+        icon={
+          status === "authenticated" ? faRightFromBracket : faRightToBracket
+        }
+      />
+    ),
+    perform: () =>
+      status === "authenticated"
+        ? signOut()
+        : status === "unauthenticated"
+        ? signIn()
+        : null,
   });
   if (status === "authenticated") {
     actions.push({
@@ -90,11 +128,11 @@ export const useActions = (status: "authenticated" | "loading" | "unauthenticate
       name: isEditing ? "Stop Editing" : "Edit",
       keywords: "edit",
       icon: <FontAwesomeIcon icon={isEditing ? faCheck : faEdit} />,
-      perform: () => isEditing ? setEditing(false) : setEditing(true),
+      perform: () => (isEditing ? setEditing(false) : setEditing(true)),
     });
   }
   return actions;
-}
+};
 
 export const RenderResults = () => {
   const { results } = useMatches();
@@ -103,9 +141,13 @@ export const RenderResults = () => {
     <KbarResultsContainer>
       <KBarResults
         items={results.sort((a, b) => {
-          return typeof a === "string" ? 0 : typeof b === "string" ? 0 : a.id.localeCompare(b.id);
+          return typeof a === "string"
+            ? 0
+            : typeof b === "string"
+            ? 0
+            : a.id.localeCompare(b.id);
         })}
-        onRender={({ item, active, }) =>
+        onRender={({ item, active }) =>
           typeof item === "string" ? (
             <>{item}</>
           ) : (
@@ -154,10 +196,12 @@ export const KbarResultItem = styled.div<{ selected: boolean }>`
 export const KbarSkeleton = () => {
   return (
     <KBarPortal>
-      <KBarPositioner style={{
-        backdropFilter: "blur(10px)",
-        zIndex: 100,
-      }}>
+      <KBarPositioner
+        style={{
+          backdropFilter: "blur(10px)",
+          zIndex: 100,
+        }}
+      >
         <KBarAnimator
           style={{
             filter: "drop-shadow(0px 0px 10px var(--shadow))",

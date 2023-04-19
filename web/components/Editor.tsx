@@ -5,7 +5,9 @@ import { ReactQuillProps } from "react-quill";
 import styled from "styled-components";
 
 export const Editor = styled(ReactQuill)`
-  .ql-editor, .ql-container, .ql-toolbar {
+  .ql-editor,
+  .ql-container,
+  .ql-toolbar {
     border: none;
     background-color: ${({ theme }) => theme.paper};
     color: ${({ theme }) => theme.text};
@@ -21,7 +23,9 @@ export const Editor = styled(ReactQuill)`
       &:hover {
         color: ${({ theme }) => theme.secondary} !important;
       }
-      &:active, .ql-selected, .ql-active {
+      &:active,
+      .ql-selected,
+      .ql-active {
         color: ${({ theme }) => theme.primary} !important;
       }
     }
@@ -59,4 +63,4 @@ export const Editor = styled(ReactQuill)`
   height: 100%;
   max-height: 70vh;
   min-height: 30vh;
-`
+`;

@@ -1,11 +1,15 @@
 import { client } from "@/lib/prismadb";
-import { makeUrlFromFileName, StaticFileType, writeStaticFile } from "@/lib/staticNext";
-import { NextApiRequest as Request, NextApiResponse as Response } from "next"
+import {
+  makeUrlFromFileName,
+  StaticFileType,
+  writeStaticFile,
+} from "@/lib/staticNext";
+import { NextApiRequest as Request, NextApiResponse as Response } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 import { ExifParserFactory } from "ts-exif-parser";
 import { Photograph } from "@prisma/client";
-import { fromUnixTime } from "date-fns"
+import { fromUnixTime } from "date-fns";
 import { fraction } from "mathjs";
 
 export const config = {
@@ -14,7 +18,7 @@ export const config = {
       sizeLimit: "50mb",
     },
   },
-}
+};
 
 export default async function handler(req: Request, res: Response) {
   const session = await unstable_getServerSession(req, res, authOptions);
@@ -22,8 +26,8 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const photographs = await client.photograph.findMany({
         orderBy: {
-          createdAt: "asc"
-        }
+          createdAt: "asc",
+        },
       });
       res.status(200).json({ photographs });
       break;
@@ -38,12 +42,22 @@ export default async function handler(req: Request, res: Response) {
         const fileStream = Buffer.from(req.body.fileContent, "base64");
         const parser = ExifParserFactory.create(fileStream);
         const exif = parser.parse();
-        const photoId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        const photographUrl = makeUrlFromFileName("photography", photoId + ".jpg");
-        await writeStaticFile(photographUrl, req.body.fileContent, StaticFileType.IMAGE);
+        const photoId =
+          Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15);
+        const photographUrl = makeUrlFromFileName(
+          "photography",
+          photoId + ".jpg"
+        );
+        await writeStaticFile(
+          photographUrl,
+          req.body.fileContent,
+          StaticFileType.IMAGE
+        );
 
         const shutterFraction = fraction(exif.tags?.ShutterSpeedValue + "");
-        const shutterFractionString = shutterFraction.n + "/" + shutterFraction.d;
+        const shutterFractionString =
+          shutterFraction.n + "/" + shutterFraction.d;
 
         const photograph = await client.photograph.create({
           data: {
@@ -54,8 +68,8 @@ export default async function handler(req: Request, res: Response) {
             focal: (exif.tags?.FocalLength?.toString() ?? "unknown") + " mm",
             shutter: shutterFractionString + " sec",
             location: exif.tags?.GPSInfo ?? "Unknown Location",
-            takenAt: fromUnixTime(exif.tags?.DateTimeOriginal ?? 0)
-          }
+            takenAt: fromUnixTime(exif.tags?.DateTimeOriginal ?? 0),
+          },
         });
         res.status(200).json({ photograph });
       } catch (e) {

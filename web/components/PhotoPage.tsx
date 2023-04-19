@@ -3,7 +3,11 @@ import { useEditing } from "@/lib/useEditing";
 import { useData } from "@/lib/useData";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { faChevronRight, faChevronLeft, faCheck } from "@fortawesome/pro-light-svg-icons"
+import {
+  faChevronRight,
+  faChevronLeft,
+  faCheck,
+} from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FadeIn from "react-fade-in/lib/FadeIn";
 import { TextField } from "./TextField";
@@ -16,15 +20,23 @@ export interface PhotoPageProps {
 
 export const PhotoPage = (props: PhotoPageProps) => {
   const { editing } = useEditing();
-  const { photos: { items: photos, modify } } = useData();
+  const {
+    photos: { items: photos, modify },
+  } = useData();
   const { replace } = useRouter();
 
   const [imageSize, setImageSize] = React.useState({ width: 0, height: 0 });
   const photo = photos.find((photo) => photo.id === props.slug)!;
 
-  const [aperture, setAperture] = React.useState(photo?.aperture.split("f/")[1].trim() || "");
-  const [focal, setFocal] = React.useState(photo?.focal.split("mm")[0].trim() || "");
-  const [shutter, setShutter] = React.useState(photo?.shutter.split("sec")[0].trim() || "");
+  const [aperture, setAperture] = React.useState(
+    photo?.aperture.split("f/")[1].trim() || ""
+  );
+  const [focal, setFocal] = React.useState(
+    photo?.focal.split("mm")[0].trim() || ""
+  );
+  const [shutter, setShutter] = React.useState(
+    photo?.shutter.split("sec")[0].trim() || ""
+  );
   const [iso, setIso] = React.useState(photo?.iso.split("ISO")[1].trim() || "");
   const [location, setLocation] = React.useState(photo?.location || "");
 
@@ -73,15 +85,14 @@ export const PhotoPage = (props: PhotoPageProps) => {
 
   React.useEffect(() => {
     if (photo) {
-      getImageSize(photo.src)
+      getImageSize(photo.src);
     }
   }, [photo]);
-
 
   return (
     <>
       <PhotoOverlay>
-        {photo && !editing &&
+        {photo && !editing && (
           <ExifContainer>
             <FadeIn>
               <span>{photo.aperture}</span>
@@ -92,48 +103,108 @@ export const PhotoPage = (props: PhotoPageProps) => {
               <span>{photo.location}</span>
             </FadeIn>
           </ExifContainer>
-        }
-        {photo && editing &&
+        )}
+        {photo && editing && (
           <ExifContainer editing>
             <FadeIn>
-              <span>f/ <TextField textLike value={aperture} onChange={(e) => setAperture(e.target.value)} /></span>
-              <span><TextField textLike value={focal} onChange={(e) => setFocal(e.target.value)} /> mm</span>
-              <span><TextField textLike value={shutter} onChange={(e) => setShutter(e.target.value)} /> sec</span>
-              <span>ISO <TextField textLike value={iso} onChange={(e) => setIso(e.target.value)} /></span>
+              <span>
+                f/{" "}
+                <TextField
+                  textLike
+                  value={aperture}
+                  onChange={(e) => setAperture(e.target.value)}
+                />
+              </span>
+              <span>
+                <TextField
+                  textLike
+                  value={focal}
+                  onChange={(e) => setFocal(e.target.value)}
+                />{" "}
+                mm
+              </span>
+              <span>
+                <TextField
+                  textLike
+                  value={shutter}
+                  onChange={(e) => setShutter(e.target.value)}
+                />{" "}
+                sec
+              </span>
+              <span>
+                ISO{" "}
+                <TextField
+                  textLike
+                  value={iso}
+                  onChange={(e) => setIso(e.target.value)}
+                />
+              </span>
               <span>{new Date(photo.takenAt).toDateString()}</span>
-              <span><TextField textLike value={location} onChange={(e) => setLocation(e.target.value)} /></span>
-              <SaveButton onClick={() => {
-                modify({
-                  ...photo,
-                  aperture: `f/${aperture}`,
-                  focal: `${focal} mm`,
-                  shutter: `${shutter} sec`,
-                  iso: `ISO ${iso}`,
-                  location,
-                })
-              }}>
+              <span>
+                <TextField
+                  textLike
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </span>
+              <SaveButton
+                onClick={() => {
+                  modify({
+                    ...photo,
+                    aperture: `f/${aperture}`,
+                    focal: `${focal} mm`,
+                    shutter: `${shutter} sec`,
+                    iso: `ISO ${iso}`,
+                    location,
+                  });
+                }}
+              >
                 <FontAwesomeIcon icon={faCheck} />
               </SaveButton>
-
             </FadeIn>
           </ExifContainer>
-        }
-        {imageSize.width > 0 && imageSize.height > 0 && <>
-          <PhotoImg src={photo?.src} width={imageSize.width} height={imageSize.height} />
+        )}
+        {imageSize.width > 0 && imageSize.height > 0 && (
+          <>
+            <PhotoImg
+              src={photo?.src}
+              width={imageSize.width}
+              height={imageSize.height}
+            />
+          </>
+        )}
 
-        </>}
-
-        <ChevronHolder available={props.prev} onClick={() => { props.prev && replace(`/photography/${props.prev}`, undefined, { shallow: true }) }} side="left">
+        <ChevronHolder
+          available={props.prev}
+          onClick={() => {
+            props.prev &&
+              replace(`/photography/${props.prev}`, undefined, {
+                shallow: true,
+              });
+          }}
+          side="left"
+        >
           <FadeIn visible={props.prev !== undefined}>
             <FontAwesomeIcon icon={faChevronLeft} />
           </FadeIn>
         </ChevronHolder>
-        <ChevronHolder available={props.next} onClick={() => { props.next && replace(`/photography/${props.next}`, undefined, { shallow: true }) }} side="right">
+        <ChevronHolder
+          available={props.next}
+          onClick={() => {
+            props.next &&
+              replace(`/photography/${props.next}`, undefined, {
+                shallow: true,
+              });
+          }}
+          side="right"
+        >
           <FadeIn visible={props.next !== undefined}>
             <FontAwesomeIcon icon={faChevronRight} />
           </FadeIn>
         </ChevronHolder>
-        <ClickableBackground onClick={() => replace(`/photography`, undefined, { shallow: true })} />
+        <ClickableBackground
+          onClick={() => replace(`/photography`, undefined, { shallow: true })}
+        />
       </PhotoOverlay>
     </>
   );
@@ -143,14 +214,19 @@ const ExifContainer = styled.div<{ editing?: boolean }>`
   position: absolute;
   top: 0px;
   left: 0px;
-  width: ${() => window.innerWidth > 576 ? "unset" : "100%"};
+  width: ${() => (window.innerWidth > 576 ? "unset" : "100%")};
   align-items: center;
   z-index: 25;
   display: flex;
   padding: 1rem;
   color: white;
-  background-color: ${({ theme, editing }) => window.innerWidth > 576 ? editing ? theme.background + "CC" : "transparent" : theme.background + "CC"};
-  font-size: ${() => window.innerWidth > 576 ? "1.5rem" : "1rem"};
+  background-color: ${({ theme, editing }) =>
+    window.innerWidth > 576
+      ? editing
+        ? theme.background + "CC"
+        : "transparent"
+      : theme.background + "CC"};
+  font-size: ${() => (window.innerWidth > 576 ? "1.5rem" : "1rem")};
   > * {
     display: flex;
     flex-direction: column;
@@ -171,23 +247,32 @@ const PhotoOverlay = styled.div`
   backdrop-filter: blur(15px);
 `;
 
-const PhotoImg = styled.img<{ src: string, width: number, height: number }>`
+const PhotoImg = styled.img<{ src: string; width: number; height: number }>`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: ${props => props.width / window.innerHeight < props.height / window.innerWidth ? "80vw" : "auto"};
-  height: ${props => props.width / window.innerHeight < props.height / window.innerWidth ? "auto" : "80vh"};
+  width: ${(props) =>
+    props.width / window.innerHeight < props.height / window.innerWidth
+      ? "80vw"
+      : "auto"};
+  height: ${(props) =>
+    props.width / window.innerHeight < props.height / window.innerWidth
+      ? "auto"
+      : "80vh"};
   z-index: 20;
 `;
 
-const ChevronHolder = styled.div<{ side: "left" | "right", available?: string }>`
+const ChevronHolder = styled.div<{
+  side: "left" | "right";
+  available?: string;
+}>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   ${(props) => props.side}: 0px;
   z-index: 20;
-  cursor: ${(props) => props.available ? "pointer" : "default"};
+  cursor: ${(props) => (props.available ? "pointer" : "default")};
   padding: 1rem;
   font-size: 3rem;
 `;

@@ -22,13 +22,18 @@ export const Contact = () => {
             </Text>
           </HorizontalDiv>
           <HorizontalDiv>
-            <Text variant="p">or perhaps you just want to see what I&apos;ve been up to on&nbsp;</Text>
+            <Text variant="p">
+              or perhaps you just want to see what I&apos;ve been up to on&nbsp;
+            </Text>
             <Text raise color="primary" variant="p">
               <a href="https://github.com/hackrmomo">GitHub</a>
             </Text>
           </HorizontalDiv>
           <HorizontalDiv>
-            <Text variant="p">regardless of how you&apos;d like to get in touch, I&apos;d love to connect!</Text>
+            <Text variant="p">
+              regardless of how you&apos;d like to get in touch, I&apos;d love
+              to connect!
+            </Text>
           </HorizontalDiv>
         </FadeIn>
       </FloatingDiv>

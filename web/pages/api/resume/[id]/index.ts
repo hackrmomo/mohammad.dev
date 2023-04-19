@@ -1,5 +1,5 @@
 import { client } from "@/lib/prismadb";
-import { NextApiRequest as Request, NextApiResponse as Response } from "next"
+import { NextApiRequest as Request, NextApiResponse as Response } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 
@@ -12,10 +12,16 @@ export default async function handler(req: Request, res: Response) {
       const resume = await client.resume.findUnique({
         where: {
           domain: id.split("@")[1],
-        }
+        },
       });
       if (!resume) {
-        res.status(200).redirect(`${process.env["MOHAMMAD_URL"] ?? ""}/static/resume/Mohammad%20Al-Ahdal%20BASE.pdf`);
+        res
+          .status(200)
+          .redirect(
+            `${
+              process.env["MOHAMMAD_URL"] ?? ""
+            }/static/resume/Mohammad%20Al-Ahdal%20BASE.pdf`
+          );
         return;
       }
       res.status(200).redirect(resume.src);
@@ -28,8 +34,8 @@ export default async function handler(req: Request, res: Response) {
       }
       await client.resume.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ message: "deleted" });
       break;

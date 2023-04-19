@@ -52,15 +52,22 @@ export const NavBar = () => {
       </a>
     </Link>,
   ];
-  const Links: ({ link: string | (() => void), title: string } | null)[] = [
+  const Links: ({ link: string | (() => void); title: string } | null)[] = [
     { link: "/#about", title: "About" },
     { link: "/#contact", title: "Contact" },
     { link: "/resume", title: "Resume" },
     { link: "/portfolio", title: "Portfolio" },
     { link: "/blog", title: "Blog" },
     { link: "/photography", title: "Photography" },
-    isMobile ? { link: toggleDarkMode, title: isDarkMode ? "Light Mode" : "Dark Mode" } : null,
-    isMobile ? { link: () => setEditing(!editing), title: editing ? "Done Editing" : "Edit" } : null,
+    isMobile
+      ? { link: toggleDarkMode, title: isDarkMode ? "Light Mode" : "Dark Mode" }
+      : null,
+    isMobile
+      ? {
+          link: () => setEditing(!editing),
+          title: editing ? "Done Editing" : "Edit",
+        }
+      : null,
   ];
 
   const LinkElements = Links.filter((l) => l !== null).map((link, index) => (

@@ -5,7 +5,9 @@ import styled from "styled-components";
 import { useEffect } from "react";
 
 const Portfolio: NextPage = () => {
-  const { portfolio: { items: portfolioItems, get } } = useData();
+  const {
+    portfolio: { items: portfolioItems, get },
+  } = useData();
 
   useEffect(() => {
     get();

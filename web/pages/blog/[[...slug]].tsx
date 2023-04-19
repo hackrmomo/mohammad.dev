@@ -142,11 +142,11 @@ const BlogsPage: NextPage = () => {
                   />
                   <Button
                     onClick={async () => {
-                      const {data} = await axios.post<{blog: Blog}>("/api/blog", { title, content });
-                      setPosts([
-                        ...posts,
-                        data.blog
-                      ])
+                      const { data } = await axios.post<{ blog: Blog }>(
+                        "/api/blog",
+                        { title, content }
+                      );
+                      setPosts([...posts, data.blog]);
                       setTitle("");
                       setContent("");
                     }}

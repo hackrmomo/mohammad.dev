@@ -15,10 +15,9 @@ let x = 0;
 let y = 0;
 
 const index: NextPage = () => {
-
   window.addEventListener("mousemove", (e) => {
-    x = (e.clientX - window.innerWidth / 2) / window.innerWidth * 2;
-    y = (e.clientY - window.innerHeight / 2) / window.innerHeight * 2;
+    x = ((e.clientX - window.innerWidth / 2) / window.innerWidth) * 2;
+    y = ((e.clientY - window.innerHeight / 2) / window.innerHeight) * 2;
   });
 
   return (
@@ -57,7 +56,6 @@ const Box = () => {
       meshRef.current.position.x += (x - meshRef.current.position.x) * 0.03;
       meshRef.current.position.y -= (y - -meshRef.current.position.y) * 0.03;
 
-
       // rotate the box
       meshRef.current.rotation.x += 0.01;
       meshRef.current.rotation.y += 0.01;
@@ -72,7 +70,6 @@ const Box = () => {
     </mesh>
   );
 };
-
 
 const VerticalWrapper = styled.div`
   position: relative;
@@ -101,6 +98,6 @@ const Background = styled.div`
   padding: 0px;
   margin: 0px;
   z-index: -1;
-`
+`;
 
 export default index;

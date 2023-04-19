@@ -82,7 +82,7 @@ export const useGlobalStyles = () => {
     --primary: ${({ theme }) => theme.primary};
     --secondary: ${({ theme }) => theme.secondary};
     --success: ${({ theme }) => theme.success};
-    --error: ${({theme}) => theme.error};
+    --error: ${({ theme }) => theme.error};
   }
   textarea:focus, input:focus {
     outline: none

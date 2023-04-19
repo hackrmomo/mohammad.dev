@@ -1,6 +1,6 @@
 import { client } from "@/lib/prismadb";
 import { removeStaticFile } from "@/lib/staticNext";
-import { NextApiRequest as Request, NextApiResponse as Response } from "next"
+import { NextApiRequest as Request, NextApiResponse as Response } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 
@@ -12,8 +12,8 @@ export default async function handler(req: Request, res: Response) {
     case "GET":
       const photograph = await client.photograph.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ photograph });
       break;
@@ -25,8 +25,8 @@ export default async function handler(req: Request, res: Response) {
       }
       const photographToUpdate = await client.photograph.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       if (!photographToUpdate) {
         res.status(404).json({ message: "Photograph not found" });
@@ -35,7 +35,7 @@ export default async function handler(req: Request, res: Response) {
       const { aperture, focal, shutter, iso, location } = req.body;
       await client.photograph.update({
         where: {
-          id: id
+          id: id,
         },
         data: {
           aperture: aperture,
@@ -43,7 +43,7 @@ export default async function handler(req: Request, res: Response) {
           shutter: shutter,
           iso: iso,
           location: location,
-        }
+        },
       });
       res.status(200).json({ message: "updated" });
       break;
@@ -55,18 +55,18 @@ export default async function handler(req: Request, res: Response) {
       }
       const photographToDelete = await client.photograph.findUnique({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
-      if (!photographToDelete) { 
+      if (!photographToDelete) {
         res.status(404).json({ message: "Photograph not found" });
         return;
       }
       await removeStaticFile(photographToDelete.src);
       await client.photograph.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
       res.status(200).json({ message: "deleted" });
       break;

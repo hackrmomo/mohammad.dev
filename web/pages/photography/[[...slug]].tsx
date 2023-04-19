@@ -9,7 +9,9 @@ import { PhotoPage } from "@/components/PhotoPage";
 
 const Photography: NextPage = () => {
   const { editing } = useEditing();
-  const { photos: { get, items: photos } } = useData();
+  const {
+    photos: { get, items: photos },
+  } = useData();
   const { query } = useRouter();
 
   const prev = (slug: string) => {
@@ -41,16 +43,19 @@ const Photography: NextPage = () => {
           ))}
           {editing && <Photo key="new" />}
         </PhotographyInternalContainer>
-        {
-          query.slug && query.slug[0] && <>
-            <PhotoPage slug={query.slug[0]} next={next(query.slug[0])} prev={prev(query.slug[0])} />
+        {query.slug && query.slug[0] && (
+          <>
+            <PhotoPage
+              slug={query.slug[0]}
+              next={next(query.slug[0])}
+              prev={prev(query.slug[0])}
+            />
           </>
-        }
+        )}
       </PhotographyContainer>
     </>
   );
 };
-
 
 const PhotographyContainer = styled.div`
   position: absolute;
@@ -64,12 +69,12 @@ const PhotographyContainer = styled.div`
 
 const PhotographyInternalContainer = styled.div`
   z-index: 0;
-  display: ${() => window.innerWidth > 576 ? "grid" : "flex"};
+  display: ${() => (window.innerWidth > 576 ? "grid" : "flex")};
   flex-direction: column;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 10px;
   justify-content: space-around;
-  `;
+`;
 
 export default Photography;

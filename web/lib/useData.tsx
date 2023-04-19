@@ -1,15 +1,16 @@
 // provides a global context for various data such as photos, portfolioItems, and blogPosts
 
-import { Blog, Photograph, Portfolio } from '@prisma/client';
-import React, { createContext, ReactNode, useContext, useState } from 'react';
-import axios from 'axios';
+import { Blog, Photograph, Portfolio } from "@prisma/client";
+import React, { createContext, ReactNode, useContext, useState } from "react";
+import axios from "axios";
 
 interface AddPhotoProps {
   fileContent: string;
 }
 
-type AddOrModifyPortfolioItemProps = Partial<Portfolio> & {imageContent: string | undefined};
-
+type AddOrModifyPortfolioItemProps = Partial<Portfolio> & {
+  imageContent: string | undefined;
+};
 
 interface DataContextProps {
   photos: {
@@ -18,7 +19,7 @@ interface DataContextProps {
     add: (photo: AddPhotoProps) => Promise<void>;
     delete: (id: string) => Promise<void>;
     modify: (photo: Photograph) => Promise<void>;
-  }
+  };
 
   portfolio: {
     items: Portfolio[];
@@ -26,7 +27,7 @@ interface DataContextProps {
     add: (portfolioItem: AddOrModifyPortfolioItemProps) => Promise<void>;
     delete: (id: string) => Promise<void>;
     modify: (portfolioItem: AddOrModifyPortfolioItemProps) => Promise<void>;
-  }
+  };
 
   blog: {
     items: Blog[];
@@ -34,30 +35,30 @@ interface DataContextProps {
     add: (blogPost: Blog) => Promise<void>;
     delete: (id: string) => Promise<void>;
     modify: (blogPost: Blog) => Promise<void>;
-  }
+  };
 }
 
 const DataContext = createContext<DataContextProps>({
   photos: {
     items: [],
-    get: async () => { },
-    add: async () => { },
-    delete: async () => { },
-    modify: async () => { },
+    get: async () => {},
+    add: async () => {},
+    delete: async () => {},
+    modify: async () => {},
   },
   portfolio: {
     items: [],
-    get: async () => { },
-    add: async () => { },
-    delete: async () => { },
-    modify: async () => { },
+    get: async () => {},
+    add: async () => {},
+    delete: async () => {},
+    modify: async () => {},
   },
   blog: {
     items: [],
-    get: async () => { },
-    add: async () => { },
-    delete: async () => { },
-    modify: async () => { },
+    get: async () => {},
+    add: async () => {},
+    delete: async () => {},
+    modify: async () => {},
   },
 });
 
@@ -67,12 +68,12 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [blog, setBlog] = useState<Blog[]>([]);
 
   const getPhotos = async () => {
-    const { data } = await axios.get('/api/photography');
+    const { data } = await axios.get("/api/photography");
     setPhotos(data.photographs);
   };
 
   const addPhoto = async (photo: AddPhotoProps) => {
-    await axios.post('/api/photography', photo);
+    await axios.post("/api/photography", photo);
     await getPhotos();
   };
 
@@ -87,12 +88,14 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getPortfolio = async () => {
-    const { data } = await axios.get('/api/portfolio');
+    const { data } = await axios.get("/api/portfolio");
     setPortfolio(data.portfolios);
   };
 
-  const addPortfolioItem = async (portfolioItem: AddOrModifyPortfolioItemProps) => {
-    await axios.post('/api/portfolio', portfolioItem);
+  const addPortfolioItem = async (
+    portfolioItem: AddOrModifyPortfolioItemProps
+  ) => {
+    await axios.post("/api/portfolio", portfolioItem);
     await getPortfolio();
   };
 
@@ -101,18 +104,20 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     await getPortfolio();
   };
 
-  const modifyPortfolioItem = async (portfolioItem: AddOrModifyPortfolioItemProps) => {
+  const modifyPortfolioItem = async (
+    portfolioItem: AddOrModifyPortfolioItemProps
+  ) => {
     await axios.put(`/api/portfolio/${portfolioItem.id}`, portfolioItem);
     await getPortfolio();
   };
 
   const getBlog = async () => {
-    const { data } = await axios.get('/api/blog');
+    const { data } = await axios.get("/api/blog");
     setBlog(data.blog);
   };
 
   const addBlogPost = async (blogPost: Blog) => {
-    await axios.post('/api/blog', blogPost);
+    await axios.post("/api/blog", blogPost);
     await getBlog();
   };
 

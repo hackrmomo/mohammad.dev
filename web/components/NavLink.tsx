@@ -35,7 +35,9 @@ export const NavLink = ({ special, children, to }: NavLinkProps) => {
   return (
     <BoundingDiv>
       {typeof to === "string" ? (
-        <Link prefetch scroll={false} shallow href={to}>{children}</Link>
+        <Link prefetch scroll={false} shallow href={to}>
+          {children}
+        </Link>
       ) : (
         <FunctionalLink onClick={to}>{children}</FunctionalLink>
       )}
