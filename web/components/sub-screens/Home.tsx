@@ -31,7 +31,6 @@ export const Home = () => {
             love building apps of all kinds, playing video games, <br /> taking
             photos, and travelling!
           </Text>
-          <Text color="#808080">👾 we&apos;re still under construction 👾</Text>
           <FadeIn wrapperTag={HorizontalWrapper}>
             <Text raise variant="h3" color="var(--text)">
               <a href="https://github.com/hackrmomo">
