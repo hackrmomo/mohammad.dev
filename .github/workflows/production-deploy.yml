@@ -16,6 +16,11 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       MOHAMMAD_DB_URL: ${{ secrets.MOHAMMAD_DB_URL }}
       NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+      S3_URL: ${{ vars.S3_URL }}
+      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      MINIO_ROOT_USER: ${{ secrets.MINIO_ROOT_USER }}
+      MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,6 +34,11 @@ jobs:
           echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> .env;
           echo "MOHAMMAD_DB_URL=${MOHAMMAD_DB_URL}" >> .env;
           echo "NEXTAUTH_URL=${NEXTAUTH_URL}" >> .env;
+          echo "S3_URL=${S3_URL}" >> .env;
+          echo "MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}" >> .env;
+          echo "MINIO_SECRET_KEY=${MINIO_SECRET_KEY}" >> .env;
+          echo "MINIO_ROOT_USER=${MINIO_ROOT_USER}" >> .env;
+          echo "MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}" >> .env;
       - name: Upload .env
         uses: actions/upload-artifact@v3
         with:
