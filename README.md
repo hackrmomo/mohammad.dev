@@ -1,7 +1,7 @@
 # mohammad.dev
 
 ## Hi there 👋
-This is all of the code that runs my website, mohammad.dev. It's built with [Next.js](https://nextjs.org/) and [Prisma](https://www.prisma.io/) and hosted on [my home server](https://github.com/hackrmomo/home_server) as a dockerized container. It's a work in progress, so expect great things to come!
+This is all of the code that runs my website, mohammad.dev. It's built with [Next.js](https://nextjs.org/) and [Prisma](https://www.prisma.io/) and hosted on [my home server](https://github.com/hackrmomo/home_server) as a dockerized container. I'm happy with where it is for now - more changes will likely come but nothing major just yet 👾
 
 ## Development 🧑‍💻
 To run this project locally, you'll need to have [docker](https://www.docker.com/) installed. Then, clone this repository and run the following commands:
