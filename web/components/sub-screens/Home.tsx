@@ -21,7 +21,7 @@ export const Home = () => {
             {"Hey, I'm "}
             <Text raise variant="span" color="primary">
               <Link href="#about" scroll={false}>
-                <a>Mohammad</a>
+                Mohammad
               </Link>
             </Text>
             .

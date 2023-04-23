@@ -3,9 +3,9 @@ import {
   makeUrlFromFileName,
   StaticFileType,
   writeStaticFile,
-} from "@/lib/staticNext";
+} from "@/lib/s3";
 import { NextApiRequest as Request, NextApiResponse as Response } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 import { ExifParserFactory } from "ts-exif-parser";
 import { Photograph } from "@prisma/client";
@@ -21,7 +21,7 @@ export const config = {
 };
 
 export default async function handler(req: Request, res: Response) {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   switch (req.method) {
     case "GET":
       const photographs = await client.photograph.findMany({
@@ -49,9 +49,10 @@ export default async function handler(req: Request, res: Response) {
           "photography",
           photoId + ".jpg"
         );
+        const dataBuffer = Buffer.from(req.body.fileContent, "base64");
         await writeStaticFile(
           photographUrl,
-          req.body.fileContent,
+          dataBuffer,
           StaticFileType.IMAGE
         );
 

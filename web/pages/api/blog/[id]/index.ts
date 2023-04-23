@@ -1,16 +1,13 @@
 import { client } from "@/lib/prismadb";
 import { NextApiRequest as Request, NextApiResponse as Response } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
-import { removeStaticFile } from "@/lib/staticNext";
+import { makeUrlFromFileName, writeStaticFile, removeStaticFile, StaticFileType } from "@/lib/s3";
 import { randomUUID } from "crypto";
-import { makeUrlFromFileName } from "@/lib/staticNext";
-import { writeStaticFile } from "@/lib/staticNext";
-import { StaticFileType } from "@/lib/staticNext";
 
 export default async function handler(req: Request, res: Response) {
   const { id } = req.query as { id: string };
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   switch (req.method) {
     case "GET":
@@ -42,7 +39,7 @@ export default async function handler(req: Request, res: Response) {
           .match(/<img.*?src="(.*?)".*?>/g)
           .map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of oldImgSrcs) {
-        if (imgSrc && imgSrc.startsWith(process.env.MOHAMMAD_URL!)) {
+        if (imgSrc && imgSrc.startsWith(process.env.S3_URL!)) {
           if (!omittedImgSrcs.includes(imgSrc)) {
             try {
               await removeStaticFile(imgSrc);
@@ -62,8 +59,9 @@ export default async function handler(req: Request, res: Response) {
           if (imgSrc && imgSrc.startsWith("data:")) {
             const uuid = randomUUID();
             const data = imgSrc.split(",")[1];
+            const dataBuffer = Buffer.from(data, "base64");
             const newSrc = makeUrlFromFileName("blog", uuid + ".png");
-            await writeStaticFile(newSrc, data, StaticFileType.IMAGE);
+            await writeStaticFile(newSrc, dataBuffer, StaticFileType.IMAGE);
             req.body.markdown = req.body.markdown.replace(imgSrc, newSrc);
           }
         } catch (e) {
@@ -99,7 +97,7 @@ export default async function handler(req: Request, res: Response) {
           .match(/<img.*?src="(.*?)".*?>/g)
           ?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of imgSrcs) {
-        if (imgSrc && imgSrc.startsWith(process.env.MOHAMMAD_URL!)) {
+        if (imgSrc && imgSrc.startsWith(process.env.S3_URL!)) {
           try {
             await removeStaticFile(imgSrc);
           } catch (e) {
