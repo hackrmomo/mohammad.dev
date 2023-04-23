@@ -1,15 +1,15 @@
 import { client } from "@/lib/prismadb";
 import { NextApiRequest as Request, NextApiResponse as Response } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 import {
   makeUrlFromFileName,
   StaticFileType,
   writeStaticFile,
-} from "@/lib/staticNext";
+} from "@/lib/s3";
 
 export default async function handler(req: Request, res: Response) {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   switch (req.method) {
     case "GET":
       const resumes = await client.resume.findMany();
@@ -29,10 +29,12 @@ export default async function handler(req: Request, res: Response) {
         }
         const resumeUrl = makeUrlFromFileName(
           "resume",
-          "Mohammad Al-Ahdal " + domain + ".pdf"
+          "resume" + domain + ".pdf"
         );
         console.log(resumeUrl);
-        await writeStaticFile(resumeUrl, req.body.resume, StaticFileType.PDF);
+        const resumeBufferFromBase64 = Buffer.from(req.body.resume, "base64");
+
+        await writeStaticFile(resumeUrl, resumeBufferFromBase64, StaticFileType.PDF);
         const resume = await client.resume.upsert({
           create: {
             domain: req.body.domain,

@@ -42,14 +42,12 @@ export const NavBar = () => {
 
   const Logo = [
     <Link shallow scroll={false} key="logo" href="/#~">
-      <a>
-        <Image
-          src={isDarkMode ? DarkLogo.src : LightLogo.src}
-          width={isMobile ? 35 : 60}
-          height={isMobile ? 35 : 60}
-          alt="hackr logo"
-        />
-      </a>
+      <Image
+        src={isDarkMode ? DarkLogo.src : LightLogo.src}
+        width={isMobile ? 35 : 60}
+        height={isMobile ? 35 : 60}
+        alt="hackr logo"
+      />
     </Link>,
   ];
   const Links: ({ link: string | (() => void); title: string } | null)[] = [

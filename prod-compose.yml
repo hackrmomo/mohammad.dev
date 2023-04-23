@@ -34,3 +34,16 @@ services:
       - .env
     volumes:
       - ./db:/var/lib/postgresql/data
+  s3mohammad:
+    container_name: s3mohammad
+    image: minio/minio
+    restart: always
+    networks:
+      server:
+        aliases:
+          - s3mohammad
+    env_file:
+      - .env
+    volumes:
+      - ./s3:/data
+    command: server /data --console-address ":9001"

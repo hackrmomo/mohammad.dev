@@ -34,7 +34,7 @@ export const About = () => {
           </Text>
           <Text raise color="primary" variant="h3">
             <Link href="#contact" scroll={false}>
-              <a>Let&apos;s chat.</a>
+              Let&apos;s chat.
             </Link>
           </Text>
         </FadeIn>

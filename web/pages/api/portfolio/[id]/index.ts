@@ -1,12 +1,12 @@
 import { client } from "@/lib/prismadb";
 import { NextApiRequest as Request, NextApiResponse as Response } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@[...nextauth]";
 import {
   writeStaticFile,
   makeUrlFromFileName,
   StaticFileType,
-} from "@/lib/staticNext";
+} from "@/lib/s3";
 
 export const config = {
   api: {
@@ -18,7 +18,7 @@ export const config = {
 
 export default async function handler(req: Request, res: Response) {
   const { id } = req.query as { id: string };
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   switch (req.method) {
     case "GET":
@@ -36,11 +36,12 @@ export default async function handler(req: Request, res: Response) {
         return;
       }
       let portfolioImageSrc: string | undefined = undefined;
+      const dataBuffer = Buffer.from(req.body.imageContent, "base64");
       try {
         portfolioImageSrc = makeUrlFromFileName("portfolio", id + ".jpg");
         await writeStaticFile(
           portfolioImageSrc,
-          req.body.imageContent,
+          dataBuffer,
           StaticFileType.IMAGE
         );
       } catch (e) {

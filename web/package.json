@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.316.0",
     "@fortawesome/fontawesome-pro": "^6.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
@@ -21,6 +22,7 @@
     "@prisma/client": "^4.6.1",
     "@react-three/drei": "^9.65.3",
     "@react-three/fiber": "^8.12.1",
+    "@types/minio": "^7.0.18",
     "@types/three": "^0.150.1",
     "axios": "^0.27.2",
     "axios-hooks": "^4.0.0",
@@ -31,8 +33,9 @@
     "kbar": "^0.1.0-beta.38",
     "lottie-react": "^2.3.1",
     "mathjs": "^11.5.0",
-    "next": "^12.3.1",
-    "next-auth": "^4.17.0",
+    "minio": "^7.0.33",
+    "next": "^13.3.1-canary.16",
+    "next-auth": "^4.22.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.8",
