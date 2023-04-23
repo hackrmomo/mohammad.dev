@@ -53,7 +53,7 @@ const BlogsPage: NextPage = () => {
   }, [blog]);
 
   return (
-    <>
+    <RootContainer>
       {query.slug && query.slug.length > 0 && (
         <>
           <BlogContainer>
@@ -178,7 +178,7 @@ const BlogsPage: NextPage = () => {
           </BlogsContainer>
         </>
       )}
-    </>
+    </RootContainer>
   );
 };
 
@@ -203,6 +203,9 @@ const BlogContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10rem 1rem 2.5rem 1rem;
+  max-width: 1200px;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 
   p {
@@ -223,6 +226,18 @@ const BlogContainer = styled.div`
       margin: 0;
     }
   }
+`;
+
+const RootContainer = styled.div`
+  width: 100vw;
+  padding: 0px;
+  margin: 0px;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 const NewBlogFormContainer = styled.div`
