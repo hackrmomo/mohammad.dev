@@ -10,7 +10,7 @@ RUN npm config set "//npm.fontawesome.com/:_authToken" ${NPM_TOKEN}
 COPY ./ ./
 
 RUN yarn
-run yarn prisma generate
+RUN yarn prisma generate
 RUN yarn build
 
 EXPOSE ${PORT}
