@@ -75,6 +75,11 @@ const BlogsPage: NextPage = () => {
                       onChange={(value) => {
                         setBlog({ ...blog, markdown: value });
                       }}
+                      modules={{
+                        Clipboard: {
+                          matchVisual: false,
+                        },
+                      }}
                     />
                     <div>
                       <Button
