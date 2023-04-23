@@ -68,6 +68,7 @@ const BlogsPage: NextPage = () => {
                       onChange={(e) => {
                         setBlog({ ...blog, title: e.target.value });
                       }}
+                      fullWidth
                     />
                     <Editor
                       value={blog.markdown}

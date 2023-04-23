@@ -13,6 +13,7 @@ interface TextFieldProps {
   onSubmit?: () => void;
   textLike?: boolean;
   editable?: boolean;
+  fullWidth?: boolean;
 }
 
 export const TextField = (props: TextFieldProps) => {
@@ -93,8 +94,10 @@ const Field = styled.textarea<{
   value?: string;
   variant?: VariantType;
   editable?: boolean;
+  fullWidth?: boolean;
 }>`
   margin: ${({ textLike }) => (textLike ? "0" : "15px")};
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   min-width: ${({ textLike }) => (textLike ? "0px" : "20rem")};
   font-size: ${({ textLike, variant }) =>
     variant ? textSizeFromVariant(variant) : textLike ? "unset" : "1.25rem"};
