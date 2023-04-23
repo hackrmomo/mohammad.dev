@@ -184,6 +184,7 @@ const BlogsPage: NextPage = () => {
 
 const BlogsContainer = styled.div`
   width: 100vw;
+  max-height: 100vh;
   padding: 0px;
   margin: 10rem 0px;
   z-index: 0;

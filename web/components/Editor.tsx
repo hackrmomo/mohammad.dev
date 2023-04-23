@@ -40,6 +40,7 @@ export const Editor = styled(ReactQuill)`
     &.ql-blank::before {
       color: ${({ theme }) => theme.subduedText};
     }
+    max-height: 60vh;
   }
 
   .ql-container {
@@ -60,6 +61,5 @@ export const Editor = styled(ReactQuill)`
 
   width: 100%;
   height: 100%;
-  max-height: 70vh;
   min-height: 30vh;
 `;
