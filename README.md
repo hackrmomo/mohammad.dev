@@ -20,7 +20,3 @@ sudo docker-compose up -d --build --force-recreate --remove-orphans
 <img width="1800" alt="image" src="https://user-images.githubusercontent.com/5733032/210317218-32a8ff59-09b6-4adf-9bde-cf7691cdcaef.png">
 <img width="1800" alt="image" src="https://user-images.githubusercontent.com/5733032/209704253-11a0dac8-3f81-4a2a-b313-81b4b99609c4.png">
 <img width="1800" alt="image" src="https://user-images.githubusercontent.com/5733032/209704287-f51747ad-4f37-4d0c-96ee-3ff738637e7b.png">
-
-
-## Todo 📝
-- Add blog
