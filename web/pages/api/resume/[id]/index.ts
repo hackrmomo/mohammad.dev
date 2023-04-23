@@ -20,7 +20,7 @@ export default async function handler(req: Request, res: Response) {
           .redirect(
             `${
               process.env["S3_URL"] ?? ""
-            }/static/resume/Mohammad%20Al-Ahdal%20BASE.pdf`
+            }/resume/resumeBASE.pdf`
           );
         return;
       }
