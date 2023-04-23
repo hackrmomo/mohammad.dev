@@ -35,8 +35,8 @@ export default async function handler(req: Request, res: Response) {
           .match(/<img.*?src="(.*?)".*?>/g)
           ?.map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       const omittedImgSrcs: string[] =
-        req.body.markdown
-          .match(/<img.*?src="(.*?)".*?>/g)
+        (req.body.markdown
+          .match(/<img.*?src="(.*?)".*?>/g) || [])
           .map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of oldImgSrcs) {
         if (imgSrc && imgSrc.startsWith(process.env.S3_URL!)) {
@@ -51,8 +51,8 @@ export default async function handler(req: Request, res: Response) {
       }
 
       const newImgSrcs: (string | undefined)[] =
-        req.body.markdown
-          .match(/<img.*?src="(.*?)".*?>/g)
+        (req.body.markdown
+          .match(/<img.*?src="(.*?)".*?>/g) || [])
           .map((imgSrc: string) => imgSrc.match(/src="(.*?)"/)?.[1]) || [];
       for (const imgSrc of newImgSrcs) {
         try {
